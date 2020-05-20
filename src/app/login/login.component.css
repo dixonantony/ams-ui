@@ -21,6 +21,12 @@
     color: rgb(244,71,107);
   }
   
+  .login-clean .invalidlogin {
+    text-align: start;
+    padding: 0 0 20px;
+    /* font-size: 1px; */
+    color: rgb(244,71,107);
+  }
   .login-clean form .form-control {
     background: #f7f9fc;
     border: none;

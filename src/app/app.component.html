@@ -1,3 +1,114 @@
-<app-login></app-login>
+<mat-sidenav-container class="nav-container">
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+        <div class="form-popup" id="myForm">
+            <div class="form-container">
+              <!-- <button class="closebtn"> -->
+              <div style="padding-top: 10px;padding-bottom: 20px;">
+                <button type="submit" class="mat-mini-fab closebtn" color="disabled" >
+                  <mat-icon color="Disabled" style="float: left;" (click)="closeForm()">close</mat-icon>
+                </button>        
+                <h5>Your JMC account</h5>
+              </div>
+              <mat-divider></mat-divider>
+          
+              <h2 style="padding-top: 15px;padding-bottom: 15px;">Role</h2>
+              <mat-divider></mat-divider>
+             <div>
+               <p style="padding-top: 10px;padding-bottom: 10px;"> 
+                You're signed in as dixonantony@gmail.com. </p>
+              <div style="padding-bottom: 10px;">
+                  <mat-icon >account_circle</mat-icon>
+                  <a href="/" style="vertical-align:top;">Manage your profile</a>
+              </div>  
+              <div style="padding-bottom: 10px;">
+                <mat-icon >exit_to_app</mat-icon>
+                <a href="/" style="vertical-align:top;">SignOut</a>
+              </div>
+              <mat-divider></mat-divider>
+              <div style="padding-top: 10px;">
+                <a href="/" class="terms-link">Terms</a>
+                <a style="padding-left: 10px;padding-right: 10px;">.</a>
+                <a href="/" class="terms-link">Privacy</a>
+              </div>
+            </div>
+          </div>
+          </div>
+          <mat-icon color="Disabled" style="float: right;" (click)="sidenav.toggle()">close</mat-icon>
+          <div style="text-align:center;padding-top: 10px;border-radius: 25px;">
+            <button type="submit" class="btn btnLoggedUser" (click)="openForm()">Open
+              <mat-icon color="Disabled" class="btnLoggedUserIcon">arrow_forward_ios</mat-icon>
+            </button>
+        </div>  
+        <div class="container">
+            <ul class="ul-sidebar">
+              <li><mat-icon>dashboard</mat-icon>
+                <a href="/" style="vertical-align:top;">Dashboard</a></li>
+              <li style="text-align: left;">
+                <div>
+                  <mat-icon>add_shopping_cart</mat-icon>
+                  <a (click)="toggleNavbar()"  class="menubutton">
+                    Purchases</a>
+                </div> 
+                <div class="collapse navbar-collapse" [ngClass]="{'show': navbarOpen}">        
+                  <ng-container *ngFor="let menu of menus">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="[menu.url]" 
+                                id="{{menu.id}}">{{menu.name}}</a>    
+                        </li>    
+                    </ul> 
+                  </ng-container>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <mat-icon>account_balance</mat-icon>
+                  <a   class="menubutton">Accounting</a>
+                </div> 
+              </li>
+              <li>
+                <div>
+                  <mat-icon>location_city</mat-icon>
+                  <a   class="menubutton">Inhouse</a>
+                </div> 
+              </li>
+              <li>
+                <div>
+                  <mat-icon>insert_chart_outlined</mat-icon>
+                  <a   class="menubutton">Reports</a>
+                </div> 
+              </li>    
+            </ul>
+            </div>
+            <mat-divider></mat-divider>
+            <div>
+              <ul class="ul-sidebar">
+                <li>
+                  <div>
+                    <mat-icon>settings</mat-icon>
+                    <a   class="menubutton">Settings</a>
+                  </div> 
+                </li>  
+                <li>
+                  <div>
+                    <mat-icon>help_outline</mat-icon>
+                    <a   class="menubutton">Help</a>
+                  </div> 
+                </li>   
+              </ul>
+            </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="router-container-top">
+            <button *ngIf="!opened"  class="menubutton"  id="tog-button" (click)="sidenav.toggle()">
+              <mat-icon style="color: black;">menu</mat-icon>
+            </button>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="router-container">
+            <router-outlet></router-outlet>
+        </div>        
+    </mat-sidenav-content>    
+</mat-sidenav-container>
 
-<router-outlet></router-outlet>
+<!-- <app-login></app-login> -->

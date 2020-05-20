@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,27 +8,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  email     = 'Email'
-  password  = 'Password'
+  username      = 'Username'
+  password      = 'Password'
+  errorMsg      = 'Invalid Credentials'
+  invalidLogin  = false
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
   handleLogin(){
-    console.log(this.email)
+    if(this.username==='admin' && this.password==='admin'){
+      this.invalidLogin  = false
+      console.log(this.username)
+      // this.router.navigateByUrl('welcome')
+      this.router.navigate(['welcome',this.username])
+    }else{
+      this.invalidLogin  = true
+    }
   }
 
-  emailFocusFunction(){
-    if (this.email == 'Email'){
-      this.email   = null
+  usernameFocusFunction(){
+    if (this.username == 'Username'){
+      this.username   = null
     }      
   }
 
-  emailFocusOutFunction(){
-    if (this.email == null){
-      this.email   = 'Email'
+  usernameFocusOutFunction(){
+    if (this.username == null){
+      this.username   = 'Username'
     }      
   }
 
