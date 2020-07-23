@@ -1,0 +1,101 @@
+<div class="container form">
+    <h1>Account</h1>
+    <form (ngSubmit)="!accountForm.invalid && accountForm.dirty && saveAccount()" 
+          #accountForm="ngForm">
+          <div>
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Account Code" 
+                       [(ngModel)]="account.account_cd"
+                       required="required" minlength="4" 
+                       maxlength="4"
+                       #accountcd="ngModel" name="accountcd">
+                <span class="error" *ngIf="accountcd.invalid">
+                    Account Code is required 
+                </span>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Account Name" 
+                       [(ngModel)]="account.account_name"
+                       required="required" minlength="4" 
+                       maxlength="45"
+                       #accountName="ngModel" name="accountName">
+                <span class="error" *ngIf="accountName.invalid">
+                    Account Name is required 
+                </span>
+            </mat-form-field>
+        </div> 
+        <div>
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Account No." 
+                       [(ngModel)]="account.account_no"
+                       maxlength="45"
+                       #accountNo="ngModel" name="accountNo">
+            </mat-form-field>
+        </div> 
+        <div>
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Bank" 
+                       [(ngModel)]="account.account_bank"
+                       maxlength="45"
+                       #accountBank="ngModel" name="accountBank">
+            </mat-form-field>
+        </div> 
+        <div>
+            <mat-form-field class="form-field">
+                <textarea matInput placeholder="Description" 
+                       [(ngModel)]="account.desc_txt"
+                       rows="2" cols="50" maxlength="100"
+                       #desc_txt="ngModel" name="desc_txt">
+                </textarea>       
+            </mat-form-field>
+        </div>  
+        <div>
+            <mat-form-field class="form-field">
+                <input matInput placeholder="IFSC Code" 
+                       [(ngModel)]="account.ifsc_cd"
+                       minlength="4" maxlength="45"
+                       #ifsccd="ngModel" name="ifsccd">
+            </mat-form-field>
+        </div>  
+        <div>
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Balance" 
+                       [(ngModel)]="account.account_balance"
+                       required="required"
+                       min="0" max="100" type="number"
+                       pattern="^\d{1,8}(\.\d{1,2})?$"
+                       #balance="ngModel" name="balance">
+                <span class="error" *ngIf="balance.invalid">
+                    Balance value is not correct 
+                </span>       
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="form-field">
+                <mat-select [(value)]="account.active" 
+                            panelClass="my-select-panel-class"
+                            placeholder="Active">
+                    <mat-option *ngFor="let val of active" 
+                                [value]="val.value">
+                        {{val.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>        
+        <mat-divider></mat-divider>
+        <button class="btn btn-success" 
+                style="width: 80px;">Save  </button>
+        <button class="btn btn-danger" 
+                style="width: 80px;" 
+                (click)=cancelAccount() >Cancel</button>      
+    </form>            
+</div>
+              <!-- public accountName: string,
+              public account_bank: string,
+              public desc_txt: string, 
+              public ifsc_cd: string, 
+              public account_balance: number, 
+              public active: string,               
+              public created: Date -->

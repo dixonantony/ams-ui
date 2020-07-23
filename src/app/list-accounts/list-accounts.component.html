@@ -1,0 +1,68 @@
+<div class="mat-elevation-z8">    
+    <div >
+        <mat-form-field>
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+        </mat-form-field> 
+        <button mat-mini-fab color="primary" style="float: right;vertical-align: bottom;" (click)="AddRow()">
+            Add Account
+        </button>
+      </div>
+      <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
+          <ng-container matColumnDef="action" sticky>
+            <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+              <mat-icon matTooltip="edit" (click)="editRow(element)">edit</mat-icon>
+            </mat-cell>      
+          </ng-container> 
+          <ng-container matColumnDef="accountCd" style="width: 10px;">
+            <mat-header-cell *matHeaderCellDef> Account Code </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.account_cd}} </mat-cell>      
+          </ng-container>  
+          
+          <ng-container matColumnDef="accountNo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Account No. </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.account_no}} </mat-cell>
+          </ng-container>  
+
+          <ng-container matColumnDef="accountName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Account Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.account_name}} </mat-cell>
+          </ng-container>      
+          
+          <ng-container matColumnDef="account_bank">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Account Bank </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.account_bank}}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="desc_txt">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.desc_txt}}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="ifsc_cd">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> IFSC Code </mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.ifsc_cd}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="account_balance">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Account Balance </mat-header-cell>
+            <mat-cell *matCellDef="let element" >{{element.account_balance | number : '.2-2'}}</mat-cell>
+        </ng-container>
+  
+          <ng-container matColumnDef="created">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.created | date: 'dd-MMM-yyyy HH:mm:ss'}}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="active">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Active </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.active}}</mat-cell>
+        </ng-container>
+                      
+          <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;" 
+                    (dblclick)="editRow(row)"></mat-row>
+        </mat-table>
+  </div>
+  

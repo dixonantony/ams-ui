@@ -1,0 +1,7 @@
+.mat-column-action {
+    flex: 0 0 7%;
+  }
+.mat-table {
+    overflow-x: scroll;
+    display: block !important;
+  }

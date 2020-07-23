@@ -1,0 +1,58 @@
+<div class="mat-elevation-z8">
+  <div >
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+    </mat-form-field> 
+    <button mat-mini-fab color="primary" style="float: right;vertical-align: bottom;" (click)="AddRow()">
+      <mat-icon>person_add</mat-icon>
+    </button>
+  </div>
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
+        <ng-container matColumnDef="action" sticky>
+          <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+          <mat-cell *matCellDef="let element"> 
+            <mat-icon matTooltip="edit" (click)="editRow(element)">edit</mat-icon>
+          </mat-cell>      
+        </ng-container> 
+        <ng-container matColumnDef="username">
+          <mat-header-cell *matHeaderCellDef> User Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>      
+        </ng-container>  
+        
+        <ng-container matColumnDef="firstName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.firstName}} </mat-cell>
+        </ng-container>      
+        
+        <ng-container matColumnDef="lastName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.lastName}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.email}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="mobNo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Mobile No. </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.mobNo}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="created">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.created | date: 'dd-MMM-yyyy HH:mm:ss'}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="lastUpdated">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Last Updated </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.lastUpdated | date: 'dd-MMM-yyyy HH:mm:ss'}}</mat-cell>
+        </ng-container>
+                    
+        <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" 
+                  (dblclick)="editRow(row)"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[10, 20, 30, 100]" showFirstLastButtons></mat-paginator>
+</div>

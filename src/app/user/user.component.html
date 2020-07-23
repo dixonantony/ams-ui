@@ -1,0 +1,99 @@
+
+<div class="container form">
+    <h1>User</h1>
+    <form (ngSubmit)="!userForm.invalid && cnfrmPassword && saveUser()" 
+          #userForm="ngForm">
+        <div>
+            <mat-form-field class="form-field">
+                <input matInput placeholder="User Name" 
+                       [(ngModel)]="user.username"
+                       required="required" minlength="4" 
+                       #username="ngModel" name="username"
+                       [disabled]="isDisabled">
+                <span class="error" *ngIf="username.invalid">
+                    User Name is required 
+                </span>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="form-field">
+                <input  matInput placeholder="Enter your password" 
+                        [(ngModel)]="user.password" 
+                        type="password" required="required" 
+                        minlength="4" #password="ngModel"
+                        name="password">
+                <span class="error" *ngIf="password.invalid && password.dirty"> 
+                    Password is required 
+                </span>
+            </mat-form-field>
+        </div>     
+        <div>       
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Confirm your password" 
+                       [(ngModel)]="confirmpassword" 
+                       type="password" #cnfirmPassword="ngModel" 
+                       required="required" name="cnfrmPassword" 
+                       minlength="4" (focusout)="cnfrmPwdFocusOut()">
+                <span class="error" *ngIf="!cnfrmPassword && cnfirmPassword.dirty"> 
+                    Password does not match 
+                </span>    
+            </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+        <div>
+            <mat-form-field class="form-field">
+                <input matInput placeholder="First Name" 
+                       [(ngModel)]="user.firstName"
+                       required="required" 
+                       #firstName="ngModel" name="firstName">
+                <span class="error" 
+                      *ngIf="firstName.invalid && firstName.dirty">
+                      First Name is required 
+                </span>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Last Name" 
+                       [(ngModel)]="user.lastName"
+                       #lastName="ngModel" name="lastName">                
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Email" 
+                       [(ngModel)]="user.email"
+                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                       #email="ngModel" name="email"
+                       type="email" #email="ngModel">
+                       <span class="error" 
+                             *ngIf="email.errors &&(email.touched || email.dirty)">
+                             Please enter a valid email.
+                       </span>       
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Mobile No." 
+                       [(ngModel)]="user.mobNo"
+                       #mobNo="ngModel" name="mobNo"
+                       type="tel"
+                       pattern="[\+]?\d{12,}"
+                       minlength="10">
+                <span class="error" 
+                     *ngIf="mobNo.errors &&(mobNo.touched || mobNo.dirty)">
+                       Please enter a valid Mobile No.
+                 </span>        
+            </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+        <button class="btn btn-success" 
+                style="width: 80px;">Save  </button>
+        <button class="btn btn-danger" 
+                style="width: 80px;" 
+                (click)=cancelUser() >Cancel</button>
+    </form>
+</div>
+
+
+

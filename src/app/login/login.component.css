@@ -4,8 +4,7 @@
   }
   
   .login-clean form {
-    max-width: 320px;
-    width: 90%;
+    width: 40%;
     margin: 0 auto;
     background-color: #ffffff;
     padding: 40px;
@@ -37,7 +36,7 @@
     color: inherit;
     text-indent: 8px;
     height: 42px;
-    width: 300px;
+    width: 90%;
   }
   
   .login-clean form .btn-primary {
@@ -49,7 +48,7 @@
     margin-top: 26px;
     text-shadow: none;
     outline: none !important;
-    width: 300px;
+    width: 90%;
   }
   
   .login-clean form .btn-primary:hover, .login-clean form .btn-primary:active {
