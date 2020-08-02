@@ -8,6 +8,8 @@ import {map} from 'rxjs/operators'
 })
 export class AuthenticationService {
 
+ 
+
   constructor(private http: HttpClient) { }
 
   hardCodedAuthentication(username,password){
@@ -49,5 +51,4 @@ export class AuthenticationService {
       return sessionStorage.getItem(TOKEN);
     }
   }
-
 }

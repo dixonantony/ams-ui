@@ -10,6 +10,10 @@ import { TermsComponent } from './terms/terms.component';
 import { ListUsersComponent } from './list-users/list-users.component';
 import { ListAccountsComponent } from './list-accounts/list-accounts.component';
 import { AccountComponent } from './account/account.component';
+import { ListTransCategoryComponent } from './list-trans-category/list-trans-category.component';
+import { TransCategoryComponent } from './trans-category/trans-category.component';
+import { TransactionsComponent } from './transactions/transactions.component';
+import { ListTransactionsComponent } from './list-transactions/list-transactions.component';
 
 
 const routes: Routes = [
@@ -22,6 +26,10 @@ const routes: Routes = [
   {path:'list-users', component: ListUsersComponent, canActivate:[RouteGuardService]},
   {path:'account/:accountcd', component: AccountComponent, canActivate:[RouteGuardService]},
   {path:'list-accounts', component: ListAccountsComponent, canActivate:[RouteGuardService]},
+  {path:'trans-category/:transCategoryCd', component: TransCategoryComponent, canActivate:[RouteGuardService]},
+  {path:'list-trans-category', component: ListTransCategoryComponent, canActivate:[RouteGuardService]},
+  {path:'daily-expense/:expenseid', component: TransactionsComponent, canActivate:[RouteGuardService]},
+  {path:'list-transactions', component: ListTransactionsComponent, canActivate:[RouteGuardService]},
   {path:'**', component: ErrorComponent}
 ];
 

@@ -1,24 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './service/authentication.service';
-import { Router } from '@angular/router';
 import { AUTHENTICATION_USER } from './app.constants';
 import { FinancialYear, FinancialYearService } from './service/data/financial-year.service';
 import { GlobalVariablesService } from './global-variables.service';
-
-export const menuJSON= [
-  {
-    name: 'Dashboard',
-    url: '/login',
-    writeble: true,
-    icon: 'icon-speedometer'
-  },
-  {
-    name: 'Menu1',
-    url: '/logout',
-    writeble: true,
-    icon: 'icon-puzzle'
-  }
-]
 
 interface Year {
   value: string;
@@ -30,11 +14,19 @@ interface Year {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'ams-ui';
   opened = true;
   navbarOpen = false;
-  menus: Array<any> = menuJSON;
+  expenseMenu:  Array<any> = [
+    {
+      name: 'Daily Expense',
+      url: '/daily-expense/-1',
+      writeble: true,
+      icon: 'icon-speedometer'
+    }
+  ];
+
   username = '';
   settingsMenu: Array<any> = [
     {
@@ -51,11 +43,11 @@ export class AppComponent {
     },
     {
       name: 'Transaction Category',
-      url: '/list-trans-cat',
+      url: '/list-trans-category',
       writeble: true,
       icon: 'icon-speedometer'
     }
-  ]
+  ];
   settingsNavbarOpen = false;
 
   years: Year[] = [
@@ -66,26 +58,16 @@ export class AppComponent {
   selectedYear : number
   financialYears: FinancialYear[]
 
-  constructor(private router: Router,
-              public authenticationService: AuthenticationService,
+  constructor(public authenticationService: AuthenticationService,
               private financialYearService: FinancialYearService,
               private globalVariables: GlobalVariablesService) {
-
-    this.financialYearService.retrieveAllYears()
-      .subscribe(
-        data => {
-          this.financialYears = data
-          for(var finYear of this.financialYears){
-            if(finYear.currentYear == 'Y'){
-              this.selectedYear = finYear.year
-              globalVariables.currentYear = finYear
-            }
-          }
-        }
-      ) 
+    
   }
 
- 
+  ngOnInit(): void {    
+    
+  }
+
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
   }
@@ -112,5 +94,21 @@ export class AppComponent {
         this.globalVariables.currentYear = finYear
       }
     }
+  }
+
+  AfterLoggedIn(username){
+    this.financialYearService.retrieveAllYears()
+      .subscribe(
+        data => {
+          this.financialYears = data
+          for(var finYear of this.financialYears){
+            if(finYear.currentYear == 'Y'){
+              this.selectedYear = finYear.year
+              this.globalVariables.currentYear = finYear
+              this.ngOnInit
+            }
+          }
+        }
+      ) 
   }
 }

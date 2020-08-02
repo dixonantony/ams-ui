@@ -7,16 +7,29 @@ interface yesno {
   viewValue : string;
 }
 
+interface paymentType {
+  code: string;
+  Name: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalVariablesService {
   currentYear: FinancialYear
+  financialYears: FinancialYear[]
   loggedInUser: User
   
   Active: yesno[] = [
     {value: 'Y', viewValue: 'Yes'},
     {value: 'N', viewValue: 'No'}
+  ];
+
+  paymenttypes: paymentType[] = [
+    {code: 'CSH', Name: 'Cash'},
+    {code: 'CHQ', Name: 'Cheque'},
+    {code: 'CRD', Name: 'Card'},
+    {code: 'NBK', Name: 'Net Banking'}
   ];
 
   constructor() { }

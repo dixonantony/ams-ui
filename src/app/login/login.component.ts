@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../service/authentication.service';
 
@@ -13,6 +13,8 @@ export class LoginComponent implements OnInit {
   password      = 'Password'
   errorMsg      = 'Invalid Credentials'
   invalidLogin  = false
+  
+  @Output() IsLoggedIn = new EventEmitter<String>();
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService) { }
@@ -60,6 +62,7 @@ export class LoginComponent implements OnInit {
 
     this.authenticationService.executeJWTAuthenticationService(this.username,this.password).subscribe(
       data => {
+        this.IsLoggedIn.emit(this.username);
         this.router.navigate(['welcome', this.username]);
         this.invalidLogin = false;
       },
@@ -75,5 +78,10 @@ export class LoginComponent implements OnInit {
       }
     )    
   }
+
+  getEmitter() {
+    return this.IsLoggedIn;
+  }
+
 
 }

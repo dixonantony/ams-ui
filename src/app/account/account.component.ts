@@ -38,8 +38,7 @@ export class AccountComponent implements OnInit {
             this.account = data
           }
         )
-    }  
-    console.log('account'+this.account.account_cd)             
+    }           
   }
 
   saveAccount(){

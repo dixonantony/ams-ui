@@ -4,22 +4,14 @@ import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { User, UserDataService } from '../service/data/user-data.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
 
 @Component({
   selector: 'app-list-users',
   templateUrl: './list-users.component.html',
   styleUrls: ['./list-users.component.css']
 })
-
-// public user_id: number,
-//               public username: string,
-//               public password: string,
-//               public firstName: string, 
-//               public lastName: string, 
-//               public email: string, 
-//               public mobNo: string,               
-//               public created: Date,
-//               public lastUpdated: Date
 
 export class ListUsersComponent implements OnInit {
   displayedColumns: string[] = ['action','username', 'firstName', 'lastName', 'email','mobNo','created','lastUpdated'];
@@ -31,7 +23,8 @@ export class ListUsersComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private userDataService: UserDataService,
-              private router : Router) { 
+              private router : Router,
+              private dialog: MatDialog) { 
     
   }
 
@@ -60,4 +53,22 @@ export class ListUsersComponent implements OnInit {
     this.router.navigateByUrl('/user/nu/lu')
   }
 
+  deleteRow(usr: User){    
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result){
+        this.userDataService.deleteUserById(usr.username).subscribe(
+          data =>{
+            this.users.splice(this.users.indexOf(usr),1)
+            this.dataSource = new MatTableDataSource<User>(this.users);
+          }
+        )
+      }      
+    });
+    
+  }
 }
+
+

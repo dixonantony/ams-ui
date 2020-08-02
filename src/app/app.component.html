@@ -1,5 +1,5 @@
 <div  *ngIf="!authenticationService.isUserLoggedIn() else loggedin">
-  <app-login></app-login>
+  <app-login (IsLoggedIn)="AfterLoggedIn($event)"></app-login>
 </div>
 <ng-template #loggedin>
 <mat-sidenav-container class="nav-container" >  
@@ -52,10 +52,10 @@
                 <div>
                   <mat-icon>add_shopping_cart</mat-icon>
                   <a (click)="toggleNavbar()"  class="menubutton">
-                    Purchases</a>
+                    Expenses </a>
                 </div> 
                 <div class="collapse navbar-collapse" [ngClass]="{'show': navbarOpen}">        
-                  <ng-container *ngFor="let menu of menus">
+                  <ng-container *ngFor="let menu of expenseMenu">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" [routerLink]="[menu.url]" 

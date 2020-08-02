@@ -9,10 +9,11 @@
     </button>
   </div>
     <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
-        <ng-container matColumnDef="action" sticky>
+        <ng-container matColumnDef="action" [sticky]="true">
           <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <mat-icon matTooltip="edit" (click)="editRow(element)">edit</mat-icon>
+            <mat-icon matTooltip="edit"   (click)="editRow(element)">edit</mat-icon>
+            <mat-icon matTooltip="delete" (click)="deleteRow(element)">delete</mat-icon>
           </mat-cell>      
         </ng-container> 
         <ng-container matColumnDef="username">
@@ -50,7 +51,7 @@
             <mat-cell *matCellDef="let element">{{element.lastUpdated | date: 'dd-MMM-yyyy HH:mm:ss'}}</mat-cell>
         </ng-container>
                     
-        <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;" 
                   (dblclick)="editRow(row)"></mat-row>
       </mat-table>

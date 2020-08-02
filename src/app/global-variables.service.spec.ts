@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { GlobalVariablesService } from './global-variables.service';
 
 describe('GlobalVariablesService', () => {

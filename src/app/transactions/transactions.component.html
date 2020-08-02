@@ -1,0 +1,52 @@
+
+<div class="container form">
+    <h1>Daily Expenses</h1>
+    <form (ngSubmit)="!transactionForm.invalid && saveTransaction()" 
+          #transactionForm="ngForm">
+        <div class="row">
+            <div class="col-sm-4" >
+                <mat-form-field class="form-field">
+                    <mat-select [(value)]="transCatCode" 
+                                panelClass="my-select-panel-class"
+                                placeholder="Category"
+                                (selectionChange)="onCategoryChange()">
+                        <mat-option *ngFor="let val of transCategorys" 
+                                    [value]="val.category_cd">
+                            {{val.category_name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4" >
+                <mat-form-field class="form-field">
+                    <mat-select [(value)]="transaction.transSubCategoryCd" 
+                                panelClass="my-select-panel-class"
+                                placeholder="Sub Category">
+                        <mat-option *ngFor="let val of transSubCategorys" 
+                                    [value]="val.trans_sub_cat_cd">
+                            {{val.trans_sub_cat_name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4" >
+                <mat-form-field class="form-field">
+                    <mat-select [(value)]="transaction.accountCd" 
+                                panelClass="my-select-panel-class"
+                                placeholder="Account">
+                        <mat-option *ngFor="let val of accounts" 
+                                    [value]="val.account_cd">
+                            {{val.account_name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>   
+            </div>    
+        </div>
+        <mat-divider></mat-divider>
+        <button class="btn btn-success" 
+                style="width: 80px;">Save  </button>
+        <button class="btn btn-danger" 
+                style="width: 80px;" 
+                (click)=cancelTransaction() >Cancel</button>
+    </form>
+</div>

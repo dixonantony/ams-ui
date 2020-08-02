@@ -1,0 +1,164 @@
+<div class="container form">
+    <h1>Transaction Category</h1>
+    <form (ngSubmit)="!transCategoryForm.invalid && transCategoryForm.dirty && saveCategory()" 
+          #transCategoryForm="ngForm">
+          <div class="row">
+            <div class="col-sm-2" >
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Category Code" 
+                           [(ngModel)]="transCategory.category_cd"
+                           required="required" minlength="4" 
+                           maxlength="4"
+                           #categorycd="ngModel" name="categorycd">
+                    <span class="error" *ngIf="categorycd.invalid">
+                        Category Code is required 
+                    </span>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4" >
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Category Name" 
+                           [(ngModel)]="transCategory.category_name"
+                           required="required" minlength="4" 
+                           maxlength="45"
+                           #categoryName="ngModel" name="categoryName">
+                    <span class="error" *ngIf="categoryName.invalid">
+                        Category Name is required 
+                    </span>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-2">
+                <mat-form-field class="form-field">
+                    <mat-select [(value)]="transCategory.transactionType.transaction_type_cd" 
+                                panelClass="my-select-panel-class"
+                                placeholder="Type">
+                        <mat-option *ngFor="let val of transactionTypes" 
+                                    [value]="val.transaction_type_cd">
+                            {{val.transaction_type}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Balance" 
+                            [(ngModel)]="transCategory.balance"
+                            required="required"
+                            min="0" max="100" type="number"
+                            pattern="^\d{1,8}(\.\d{1,2})?$"
+                            #balance="ngModel" name="balance">
+                    <span class="error" *ngIf="balance.invalid">
+                        Balance value is not correct 
+                    </span>       
+                </mat-form-field>
+            </div>
+          </div>        
+        <div>
+            <mat-form-field class="form-field">
+                <textarea matInput placeholder="Description" 
+                       [(ngModel)]="transCategory.category_desc"
+                       rows="2" cols="50" maxlength="100"
+                       #category_desc="ngModel" name="category_desc">
+                </textarea>       
+            </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="row">
+            <div class="col-sm-4">
+                <mat-form-field>
+                    <mat-label>Filter</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+                </mat-form-field> 
+            </div>
+            <div class="col-sm-4" style="vertical-align: bottom;"> 
+                <span class="error" *ngIf="rowRequired">
+                    <p [innerHTML]="rowValidationMsg"></p>
+                </span>
+            </div>
+            <div class="col-sm-4">
+                <button mat-raised-button  color="primary" style="float: right;vertical-align: bottom;" 
+                        (click)="AddRow()">
+                    Add Sub Category
+                </button>
+            </div>
+          </div>
+        <div>
+            <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
+                <ng-container matColumnDef="action" sticky>
+                  <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                  <mat-cell *matCellDef="let element; let idx = index;"> 
+                    <ng-container *ngIf="idx !== editedRow">
+                        <mat-icon matTooltip="edit" (click)="editRow(element,idx)">edit</mat-icon>
+                        <mat-icon matTooltip="delete" (click)="deleteRow(idx)">delete</mat-icon>
+                    </ng-container>
+                    <ng-container *ngIf="idx === editedRow">
+                        <mat-icon matTooltip="save" (click)="saveRow(element)">save</mat-icon>
+                        <mat-icon matTooltip="cancel" (click)="cancelRow(idx)">cancel</mat-icon>
+                    </ng-container>
+                    
+                  </mat-cell>      
+                </ng-container> 
+                <ng-container matColumnDef="transSubCategoryCd" style="width: 10px;">
+                  <mat-header-cell *matHeaderCellDef> Sub Category Code </mat-header-cell>
+                  <mat-cell *matCellDef="let element; let idx = index;">
+                    <ng-container *ngIf="idx !== editedRow">
+                        {{element.trans_sub_cat_cd}} 
+                    </ng-container>
+                    <ng-container *ngIf="idx === editedRow">
+                        <mat-form-field appearance="outline">
+                            <input matInput placeholder="Category Code" name="catCode"
+                            required="required"
+                            [(ngModel)]="element.trans_sub_cat_cd">
+                        </mat-form-field>
+                    </ng-container>
+                  </mat-cell>                       
+                </ng-container>
+                <ng-container matColumnDef="transSubCategoryName">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Sub Category Name </mat-header-cell>
+                  <mat-cell *matCellDef="let element; let idx = index;"> 
+                    <ng-container *ngIf="idx !== editedRow">
+                        {{element.trans_sub_cat_name}} 
+                    </ng-container>
+                    <ng-container *ngIf="idx === editedRow">
+                        <mat-form-field appearance="outline">
+                            <input matInput placeholder="Category Name" name="catName"
+                            required="required"
+                            [(ngModel)]="element.trans_sub_cat_name">
+                        </mat-form-field>
+                    </ng-container>
+                  </mat-cell>                  
+                </ng-container>  
+      
+                <ng-container matColumnDef="transSubCategoryDesc">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+                  <mat-cell *matCellDef="let element; let idx = index;">
+                    <ng-container *ngIf="idx !== editedRow">
+                        {{element.trans_sub_cat_desc}} 
+                    </ng-container>
+                    <ng-container *ngIf="idx === editedRow">
+                        <mat-form-field appearance="outline">
+                            <input matInput placeholder="Category Desc" name="catDesc"
+                            [(ngModel)]="element.trans_sub_cat_desc">
+                        </mat-form-field>
+                    </ng-container>
+                  </mat-cell>
+                </ng-container> 
+               
+                <ng-container matColumnDef="transSubBalance">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Balance </mat-header-cell>
+                  <mat-cell *matCellDef="let element" >{{element.balance | number : '.2-2'}}</mat-cell>
+              </ng-container>
+                            
+                <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns; let idx = index;" 
+                          (dblclick)="editRow(row,idx)"></mat-row>
+              </mat-table>
+        </div>           
+        <!-- <mat-divider></mat-divider> -->
+        <button class="btn btn-success" 
+                style="width: 80px;">Save  </button>
+        <button class="btn btn-danger" 
+                style="width: 80px;" 
+                (click)=cancelCategory() >Cancel</button>      
+    </form>            
+</div>

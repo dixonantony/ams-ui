@@ -27,6 +27,13 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatSelectModule} from '@angular/material/select';
 import { ListAccountsComponent } from './list-accounts/list-accounts.component';
 import { AccountComponent } from './account/account.component';
+import { ListTransCategoryComponent } from './list-trans-category/list-trans-category.component';
+import { TransCategoryComponent } from './trans-category/trans-category.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { ConfirmDeleteDialogComponent } from './confirm-delete-dialog/confirm-delete-dialog.component';
+import { TransactionsComponent } from './transactions/transactions.component';
+import { ListTransactionsComponent } from './list-transactions/list-transactions.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +46,12 @@ import { AccountComponent } from './account/account.component';
     TermsComponent,
     ListUsersComponent,
     ListAccountsComponent,
-    AccountComponent
+    AccountComponent,
+    ListTransCategoryComponent,
+    TransCategoryComponent,
+    ConfirmDeleteDialogComponent,
+    TransactionsComponent,
+    ListTransactionsComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +71,9 @@ import { AccountComponent } from './account/account.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [
     {provide : HTTP_INTERCEPTORS,useClass:HttpAuthInterceptorService, multi:true}
