@@ -21,6 +21,7 @@ export class TransCategoryComponent implements OnInit {
   tmpTSCDesc          : string;
   rowAction           : string;
   rowRequired         = false; 
+  addFirstRow         = false;
   editedRow           = -1
   rowValidationMsg    : string;
 
@@ -44,7 +45,8 @@ export class TransCategoryComponent implements OnInit {
 
     this.category_cd  = this.route.snapshot.params.transCategoryCd
     if(this.category_cd == 'na'){
-      this.category_cd = ''      
+      this.category_cd = ''  
+      this.addFirstRow = true;    
     }
     else{
       this.isUpdated = true
@@ -105,7 +107,13 @@ export class TransCategoryComponent implements OnInit {
       this.tmpTSCName     = ''
       this.tmpTSCDesc     = ''
       this.editedRow      = this.transCategory.transactionSubCategory.length
-      this.transCategory.transactionSubCategory.push(new TransactionSubCategory('','','',0));
+      if(!this.addFirstRow){
+        this.transCategory.transactionSubCategory.push(new TransactionSubCategory('','','',0));
+      }
+      else{
+        this.addFirstRow = false; 
+        this.editedRow   = 0;
+      }      
       this.dataSource = new MatTableDataSource<TransactionSubCategory>(this.transCategory.transactionSubCategory);
     }    
   }

@@ -34,6 +34,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { ConfirmDeleteDialogComponent } from './confirm-delete-dialog/confirm-delete-dialog.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { ListTransactionsComponent } from './list-transactions/list-transactions.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatSliderModule} from '@angular/material/slider';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -73,10 +77,14 @@ import { ListTransactionsComponent } from './list-transactions/list-transactions
     MatSortModule,
     MatSelectModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDatepickerModule, 
+    MatNativeDateModule,
+    MatSliderModule
   ],
   providers: [
-    {provide : HTTP_INTERCEPTORS,useClass:HttpAuthInterceptorService, multi:true}
+    {provide : HTTP_INTERCEPTORS,useClass:HttpAuthInterceptorService, multi:true},
+    {provide : DatePipe}
   ],
   bootstrap: [AppComponent]
 })

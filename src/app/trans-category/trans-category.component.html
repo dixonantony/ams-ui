@@ -41,7 +41,7 @@
             </div>
             <div class="col-sm-4">
                 <mat-form-field class="form-field">
-                    <input matInput placeholder="Balance" 
+                    <input matInput placeholder="Total" 
                             [(ngModel)]="transCategory.balance"
                             required="required"
                             min="0" max="100" type="number"
@@ -145,7 +145,7 @@
                 </ng-container> 
                
                 <ng-container matColumnDef="transSubBalance">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Balance </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Total </mat-header-cell>
                   <mat-cell *matCellDef="let element" >{{element.balance | number : '.2-2'}}</mat-cell>
               </ng-container>
                             

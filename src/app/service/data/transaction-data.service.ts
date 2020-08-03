@@ -3,10 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { API_URL } from 'src/app/app.constants';
 import { DatePipe } from '@angular/common';
 
-@Injectable({
-  providedIn: 'root'
-})
-
 export class Transaction {
   constructor(public transactionId: number,
               public transactionDesc: string,
@@ -23,7 +19,9 @@ export class Transaction {
 
   }
 }
-
+@Injectable({
+  providedIn: 'root'
+})
 export class TransactionDataService {
 
   constructor(private http: HttpClient,

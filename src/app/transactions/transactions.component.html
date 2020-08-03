@@ -1,11 +1,10 @@
-
 <div class="container form">
     <h1>Daily Expenses</h1>
     <form (ngSubmit)="!transactionForm.invalid && saveTransaction()" 
           #transactionForm="ngForm">
         <div class="row">
             <div class="col-sm-4" >
-                <mat-form-field class="form-field">
+                <mat-form-field class="form-field" >
                     <mat-select [(value)]="transCatCode" 
                                 panelClass="my-select-panel-class"
                                 placeholder="Category"
@@ -18,29 +17,107 @@
                 </mat-form-field>
             </div>
             <div class="col-sm-4" >
-                <mat-form-field class="form-field">
-                    <mat-select [(value)]="transaction.transSubCategoryCd" 
-                                panelClass="my-select-panel-class"
-                                placeholder="Sub Category">
+                <mat-form-field class="form-field" >
+                    <!-- [(value)]="transaction.transSubCategoryCd"  -->
+                    <mat-select panelClass="my-select-panel-class"
+                                placeholder="Sub Category" required
+                                [(ngModel)] = "transaction.transSubCategoryCd"
+                                #transSubCategoryCd="ngModel"
+                                name="transSubCategoryCd">
                         <mat-option *ngFor="let val of transSubCategorys" 
                                     [value]="val.trans_sub_cat_cd">
                             {{val.trans_sub_cat_name}}
                         </mat-option>
                     </mat-select>
+                    <span class="error" *ngIf="transSubCategoryCd.invalid">
+                        Select SubCategory 
+                    </span>       
                 </mat-form-field>
             </div>
+            <div class="col-sm-4" ></div>
             <div class="col-sm-4" >
-                <mat-form-field class="form-field">
-                    <mat-select [(value)]="transaction.accountCd" 
-                                panelClass="my-select-panel-class"
-                                placeholder="Account">
+                <mat-form-field class="form-field" >
+                    <!-- [(value)]="transaction.accountCd"  -->
+                    <mat-select panelClass="my-select-panel-class"
+                                placeholder="Account"
+                                [(ngModel)] = "transaction.accountCd"
+                                #accountCd="ngModel"
+                                name="accountCd" required>
                         <mat-option *ngFor="let val of accounts" 
                                     [value]="val.account_cd">
                             {{val.account_name}}
                         </mat-option>
                     </mat-select>
+                    <span class="error" *ngIf="accountCd.invalid">
+                        Select Account 
+                    </span> 
                 </mat-form-field>   
-            </div>    
+            </div>  
+            <div class="col-sm-8" ></div> 
+            
+            <div class="col-sm-4" >
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Transaction Date</mat-label>
+                    <input matInput [min]="minDate" [max]="maxDate" 
+                           [(ngModel)]="transaction.transactionDate" 
+                           [matDatepicker]="picker" name="transactionDate"
+                           #transactionDate="ngModel" required="required">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <span class="error" *ngIf="transactionDate.invalid">
+                        Transaction Date is required 
+                    </span>
+                  </mat-form-field>
+            </div> 
+            <div class="col-sm-4" style="align-items: baseline;">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Amount" 
+                            [(ngModel)]="transaction.amount"
+                            required="required"
+                            min="0" max="100" type="number"
+                            pattern="^\d{1,8}(\.\d{1,2})?$"
+                            #amount="ngModel" name="amount">
+                    <span class="error" *ngIf="amount.invalid">
+                        Amount Required 
+                    </span>       
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4" ></div>
+            <div class="col-sm-4" >
+                <mat-form-field class="form-field" >
+                    <!-- [(value)]="transaction.paymentType"  -->
+                    <mat-select panelClass="my-select-panel-class"
+                                placeholder="Payment Type"
+                                [(ngModel)] = "transaction.paymentType"
+                                #paymentType="ngModel"
+                                name="paymentType" required>
+                        <mat-option *ngFor="let val of globalVariablesService.paymenttypes" 
+                                    [value]="val.code">
+                            {{val.Name}}
+                        </mat-option>
+                    </mat-select>
+                    <span class="error" *ngIf="paymentType.invalid">
+                        Select Payment Type 
+                    </span> 
+                </mat-form-field> 
+            </div>
+            <div class="col-sm-4" >
+                <mat-form-field class="form-field" >
+                    <input matInput placeholder="Transaction Reference" 
+                           [(ngModel)]="transaction.transactionRefNo"
+                           minlength="4"  maxlength="45"
+                           #transactionRefNo="ngModel" name="transactionRefNo">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-8" >
+                <mat-form-field class="form-field" >
+                    <textarea matInput placeholder="Transaction Description" 
+                           [(ngModel)]="transaction.transactionDesc"
+                           rows="1" cols="50" 
+                           #transactionDesc="ngModel" name="transactionDesc">
+                    </textarea>       
+                </mat-form-field>
+            </div>
         </div>
         <mat-divider></mat-divider>
         <button class="btn btn-success" 

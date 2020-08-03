@@ -50,4 +50,8 @@ export class TransCategoryDataService {
   createTransCategory(transCategory: TransCategory){
     return this.http.post(`${API_URL}/transactioncategory`,transCategory);
   }
+
+  retrieveAllTransSubCategorys() {
+    return this.http.get<TransactionSubCategory[]>(`${API_URL}/transactionsubcategory`);
+  }
 }

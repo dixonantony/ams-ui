@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FinancialYear } from './service/data/financial-year.service';
 import { User } from './service/data/user-data.service';
+import { Subject } from 'rxjs';
 
 interface yesno {
   value     : string;
@@ -31,6 +32,8 @@ export class GlobalVariablesService {
     {code: 'CRD', Name: 'Card'},
     {code: 'NBK', Name: 'Net Banking'}
   ];
+
+  yearChangeEvent: Subject<void> = new Subject<void>();
 
   constructor() { }
 }

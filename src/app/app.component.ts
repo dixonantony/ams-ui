@@ -56,7 +56,7 @@ export class AppComponent implements OnInit{
     {value: 'N', viewValue: '2021'}
   ];
   selectedYear : number
-  financialYears: FinancialYear[]
+  financialYears: FinancialYear[]  
 
   constructor(public authenticationService: AuthenticationService,
               private financialYearService: FinancialYearService,
@@ -64,8 +64,11 @@ export class AppComponent implements OnInit{
     
   }
 
-  ngOnInit(): void {    
-    
+  ngOnInit(): void {      
+    let user = sessionStorage.getItem(AUTHENTICATION_USER)
+    if(!(user === null)) {
+      this.AfterLoggedIn(this.authenticationService.getAuthenticatedUser)
+    }
   }
 
   toggleNavbar() {
@@ -92,6 +95,8 @@ export class AppComponent implements OnInit{
       if(finYear.year == year){
         this.selectedYear = finYear.year
         this.globalVariables.currentYear = finYear
+        this.ngOnInit
+        this.globalVariables.yearChangeEvent.next();
       }
     }
   }
@@ -105,6 +110,7 @@ export class AppComponent implements OnInit{
             if(finYear.currentYear == 'Y'){
               this.selectedYear = finYear.year
               this.globalVariables.currentYear = finYear
+              this.globalVariables.yearChangeEvent.next();
               this.ngOnInit
             }
           }

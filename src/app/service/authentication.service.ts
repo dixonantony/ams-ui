@@ -26,8 +26,7 @@ export class AuthenticationService {
     return !(user === null)
   }
 
-  executeJWTAuthenticationService(username: string, password: string) {
-    console.log('executeJWTAuthenticationService')
+  executeJWTAuthenticationService(username: string, password: string) {   
     return this.http.post<any>(`${API_URL}/authenticate`,{
       username,
       password
