@@ -14,6 +14,8 @@ import { ListTransCategoryComponent } from './list-trans-category/list-trans-cat
 import { TransCategoryComponent } from './trans-category/trans-category.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { ListTransactionsComponent } from './list-transactions/list-transactions.component';
+import { TransCategoryReportComponent } from './trans-category-report/trans-category-report.component';
+import { TransSubCategoryReportComponent } from './trans-sub-category-report/trans-sub-category-report.component';
 
 
 const routes: Routes = [
@@ -29,7 +31,9 @@ const routes: Routes = [
   {path:'trans-category/:transCategoryCd', component: TransCategoryComponent, canActivate:[RouteGuardService]},
   {path:'list-trans-category', component: ListTransCategoryComponent, canActivate:[RouteGuardService]},
   {path:'daily-expense/:expenseid', component: TransactionsComponent, canActivate:[RouteGuardService]},
-  {path:'list-transactions', component: ListTransactionsComponent, canActivate:[RouteGuardService]},
+  {path:'transactions-report', component: ListTransactionsComponent, canActivate:[RouteGuardService]},
+  {path:'trans-summary-report', component: TransCategoryReportComponent, canActivate:[RouteGuardService]},
+  {path:'trans-detail-report', component: TransSubCategoryReportComponent, canActivate:[RouteGuardService]},
   {path:'**', component: ErrorComponent}
 ];
 

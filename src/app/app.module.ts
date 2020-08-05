@@ -38,6 +38,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSliderModule} from '@angular/material/slider';
 import { DatePipe } from '@angular/common';
+import { TransCategoryReportComponent } from './trans-category-report/trans-category-report.component';
+import { TransSubCategoryReportComponent } from './trans-sub-category-report/trans-sub-category-report.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { ExcelService } from './service/common/excel.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +59,9 @@ import { DatePipe } from '@angular/common';
     TransCategoryComponent,
     ConfirmDeleteDialogComponent,
     TransactionsComponent,
-    ListTransactionsComponent
+    ListTransactionsComponent,
+    TransCategoryReportComponent,
+    TransSubCategoryReportComponent
   ],
   imports: [
     BrowserModule,
@@ -80,11 +86,13 @@ import { DatePipe } from '@angular/common';
     MatButtonModule,
     MatDatepickerModule, 
     MatNativeDateModule,
-    MatSliderModule
+    MatSliderModule,
+    MatTooltipModule
   ],
   providers: [
     {provide : HTTP_INTERCEPTORS,useClass:HttpAuthInterceptorService, multi:true},
-    {provide : DatePipe}
+    {provide : DatePipe},
+    {provide : ExcelService}
   ],
   bootstrap: [AppComponent]
 })

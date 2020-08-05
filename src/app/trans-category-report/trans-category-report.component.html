@@ -1,0 +1,78 @@
+<div class="container form">    
+    <div class="row">
+        <div class="col-sm-3" >            
+        </div>
+        <div class="col-sm-6" >
+            <h1>Transactions Summary Report</h1>
+        </div>
+        <div class="col-sm-3" >
+            <button class="btn forward" (click)=goToDetails()>
+                <mat-icon>arrow_forward</mat-icon>
+                Details
+            </button>
+        </div> 
+    </div> 
+    <form>
+    <div class="row">
+        <div class="col-sm-3" >
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Start Date</mat-label>
+                <input matInput [min]="minDate" [max]="maxDate" 
+                    [(ngModel)]="startDate" 
+                    [matDatepicker]="startPicker" name="fromDate"
+                    (dateChange)="onDateChange()"
+                    #fromDate="ngModel" required="required">
+                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-3" >
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>End Date</mat-label>
+                <input matInput [min]="minDate" [max]="maxDate" 
+                    [(ngModel)]="endDate" 
+                    [matDatepicker]="endPicker" name="toDate"
+                    (dateChange)="onDateChange()"
+                    #toDate="ngModel" required="required">
+                <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                <mat-datepicker #endPicker></mat-datepicker>
+            </mat-form-field>
+        </div>        
+        <div class="col-sm-3" >
+            <button class="btn excel" (click)=exportAsXLSX()>
+                <mat-icon>explicit</mat-icon>
+                Excel
+            </button>
+            <button class="btn btn-secondary" (click)=printReport()>
+                <mat-icon>print</mat-icon>
+                Print
+            </button>   
+        </div>
+    </div>
+    <div id="printSection">
+        <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
+            <ng-container matColumnDef="categoryName" style="width: 10px;">
+              <mat-header-cell *matHeaderCellDef> Category Name </mat-header-cell>
+              <mat-cell *matCellDef="let element; let idx = index;">
+                    {{element.categoryName}} 
+              </mat-cell>                       
+            </ng-container>
+            <ng-container matColumnDef="categoryDescription" style="width: 10px;">
+                <mat-header-cell *matHeaderCellDef> Category Description </mat-header-cell>
+                <mat-cell *matCellDef="let element; let idx = index;">
+                      {{element.categoryDescription}} 
+                </mat-cell>                       
+            </ng-container>           
+            <ng-container matColumnDef="total">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Total </mat-header-cell>
+              <mat-cell *matCellDef="let element" >{{element.total | number : '.2-2'}}</mat-cell>
+            </ng-container>
+                        
+            <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns; let idx = index;" 
+                      matTooltip="double click to get detail report"
+                      (dblclick)="rowDoubleClick(row)"></mat-row>
+        </mat-table>
+    </div>   
+    </form>   
+</div>

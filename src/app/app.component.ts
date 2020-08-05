@@ -50,6 +50,22 @@ export class AppComponent implements OnInit{
   ];
   settingsNavbarOpen = false;
 
+  reportsMenu:  Array<any> = [
+    {
+      name: 'Transactions Summary',
+      url: 'trans-summary-report',
+      writeble: true,
+      icon: 'icon-speedometer'
+    },
+    {
+      name: 'Transactions Statement',
+      url: 'transactions-report',
+      writeble: true,
+      icon: 'icon-speedometer'
+    }
+  ];
+  reportsNavbarOpen = false;
+
   years: Year[] = [
     {value: 'N', viewValue: '2019'},
     {value: 'Y', viewValue: '2020'},
@@ -78,6 +94,11 @@ export class AppComponent implements OnInit{
   toggleSettingsNavbar() {
     
     this.settingsNavbarOpen = !this.settingsNavbarOpen;
+  }
+
+  toggleReportsNavbar() {
+    
+    this.reportsNavbarOpen = !this.reportsNavbarOpen;
   }
 
   openForm() {

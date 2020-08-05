@@ -7,10 +7,15 @@
             </button>
         </div>
         <div class="col-sm-6" >
-            <h1> Transaction Statement</h1>
+            <h1> Transactions Details Report</h1>
         </div>
-        <div class="col-sm-3" ></div> 
-    </div>
+        <div class="col-sm-3" >
+            <button class="btn forward" (click)=goToDetails()>
+                <mat-icon>arrow_forward</mat-icon>
+                Details
+            </button>
+        </div> 
+    </div>    
     <form>
         <div class="row">
             <div class="col-sm-3" >
@@ -23,7 +28,7 @@
                     <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
                     <mat-datepicker #startPicker></mat-datepicker>
                 </mat-form-field>
-            </div>
+            </div>        
             <div class="col-sm-3" >
                 <mat-form-field class="form-field" appearance="fill">
                     <mat-label>End Date</mat-label>
@@ -49,50 +54,29 @@
         </div>
         <div id="printSection">
             <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
-                <ng-container matColumnDef="transSubCategoryName" style="width: 10px;">
+                <ng-container matColumnDef="subCategoryName" style="width: 10px;">
                   <mat-header-cell *matHeaderCellDef> Subcategory Name </mat-header-cell>
                   <mat-cell *matCellDef="let element; let idx = index;">
-                        {{element.transSubCategoryName}} 
+                        {{element.transactionSubCategoryName}} 
                   </mat-cell>                       
                 </ng-container>
-                <ng-container matColumnDef="transactionDate"  style="width: 20px;">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Transaction Date </mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element.transactionDate | date: 'dd-MMM-yyyy HH:mm:ss'}}</mat-cell>
+                <ng-container matColumnDef="subCategoryDescription" style="width: 10px;">
+                    <mat-header-cell *matHeaderCellDef>Subcategory Description </mat-header-cell>
+                    <mat-cell *matCellDef="let element; let idx = index;">
+                          {{element.transactionSubCategoryDesc}} 
+                    </mat-cell>                       
+                </ng-container>           
+                <ng-container matColumnDef="total">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Total </mat-header-cell>
+                  <mat-cell *matCellDef="let element" >{{element.total | number : '.2-2'}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="transactionDesc" style="width: 10px;">
-                    <mat-header-cell *matHeaderCellDef>Transaction Description </mat-header-cell>
-                    <mat-cell *matCellDef="let element; let idx = index;">
-                          {{element.transactionDesc}} 
-                    </mat-cell>                       
-                </ng-container>
-                <ng-container matColumnDef="amount">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Amount </mat-header-cell>
-                    <mat-cell *matCellDef="let element" >{{element.amount | number : '.2-2'}}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="paymentType" style="width: 10px;">
-                    <mat-header-cell *matHeaderCellDef>Payment Type </mat-header-cell>
-                    <mat-cell *matCellDef="let element; let idx = index;">
-                          {{element.paymentType}} 
-                    </mat-cell>                       
-                </ng-container>         
-                <ng-container matColumnDef="accountName" style="width: 10px;">
-                    <mat-header-cell *matHeaderCellDef>Account Name </mat-header-cell>
-                    <mat-cell *matCellDef="let element; let idx = index;">
-                          {{element.accountName}} 
-                    </mat-cell>                       
-                </ng-container>   
-                <ng-container matColumnDef="transactionRefNo" style="width: 10px;">
-                    <mat-header-cell *matHeaderCellDef>Transaction Reference </mat-header-cell>
-                    <mat-cell *matCellDef="let element; let idx = index;">
-                          {{element.transactionRefNo}} 
-                    </mat-cell>                       
-                </ng-container>   
                             
                 <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns; let idx = index;" 
                           matTooltip="double click to get detail report"
                           (dblclick)="rowDoubleClick(row)"></mat-row>
             </mat-table>
-        </div>    
+        </div>
     </form>
+    
 </div>

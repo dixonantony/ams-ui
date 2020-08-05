@@ -60,6 +60,15 @@ export class TransactionsComponent implements OnInit {
         this.accounts      = data
       }
     );
+
+    if (this.transaction.transactionId != -1){
+      this.transactionDataService.retriveTransactionById(this.transaction.transactionId)
+        .subscribe(
+          data => {
+            this.transaction = data
+          }
+        )
+    } 
   }
 
   saveTransaction(){
@@ -100,7 +109,14 @@ export class TransactionsComponent implements OnInit {
   }
 
   returnNavigate(){
-    this.router.navigate(['/welcome/this.authenticationService.getAuthenticatedUser()'])
+    console.log('transactionId'+this.transaction.transactionId)
+    if (this.transaction.transactionId == -1){
+      this.router.navigate(['/welcome/this.authenticationService.getAuthenticatedUser()'])
+    }
+    else{
+      this.router.navigateByUrl('/transactions-report')
+    }
+    
   }
 
 }

@@ -80,7 +80,17 @@
               <li>
                 <div>
                   <mat-icon>insert_chart_outlined</mat-icon>
-                  <a   class="menubutton">Reports</a>
+                  <a  (click)="toggleReportsNavbar()" class="menubutton">Reports</a>
+                </div> 
+                <div class="collapse navbar-collapse " [ngClass]="{'show': reportsNavbarOpen}">        
+                  <ng-container *ngFor="let menu of reportsMenu">
+                    <ul class="navbar-nav mr-auto subMenu">
+                        <li class="nav-item ">
+                            <a class="nav-link" [routerLink]="[menu.url]" 
+                                id="{{menu.id}}">{{menu.name}}</a>    
+                        </li>    
+                    </ul> 
+                  </ng-container>
                 </div> 
               </li>    
             </ul>

@@ -18,7 +18,14 @@
     color: white;
     align-self: baseline;
   }
+
   .back {
+    background-color: silver;
+    color: white;
+    align-self: baseline;
+  }
+
+  .forward {
     background-color: silver;
     color: white;
     align-self: baseline;
