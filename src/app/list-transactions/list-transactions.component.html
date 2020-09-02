@@ -1,7 +1,7 @@
 <div class="container form">
     <div class="row">
-        <div class="col-sm-3" >
-            <button class="btn back" (click)=returnBack()>
+        <div class="col-sm-3" *ngIf="isSummaryRequired">
+            <button class="btn back" (click)=returnBack() >
                 <mat-icon>arrow_back</mat-icon>
                 Summary
             </button>
@@ -19,6 +19,7 @@
                     <input matInput [min]="minDate" [max]="maxDate" 
                         [(ngModel)]="startDate" 
                         [matDatepicker]="startPicker" name="fromDate"
+                        (dateChange)="onDateChange()"
                         #fromDate="ngModel" required="required">
                     <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
                     <mat-datepicker #startPicker></mat-datepicker>
@@ -49,6 +50,19 @@
         </div>
         <div id="printSection">
             <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
+                <ng-container matColumnDef="action" sticky>
+                    <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> 
+                      <mat-icon matTooltip="edit" (click)="editRow(element)">edit</mat-icon>
+                      <mat-icon matTooltip="delete" (click)="deleteRow(element)">delete</mat-icon>
+                    </mat-cell>      
+                </ng-container> 
+                <ng-container matColumnDef="voucherNo" sticky>
+                    <mat-header-cell *matHeaderCellDef>Voucher No. </mat-header-cell>
+                    <mat-cell *matCellDef="let element; let idx = index;">
+                          {{element.voucherNo}} 
+                    </mat-cell>                       
+                </ng-container>
                 <ng-container matColumnDef="transSubCategoryName" style="width: 10px;">
                   <mat-header-cell *matHeaderCellDef> Subcategory Name </mat-header-cell>
                   <mat-cell *matCellDef="let element; let idx = index;">
@@ -93,6 +107,7 @@
                           matTooltip="double click to get detail report"
                           (dblclick)="rowDoubleClick(row)"></mat-row>
             </mat-table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
         </div>    
     </form>
 </div>

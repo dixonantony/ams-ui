@@ -18,7 +18,7 @@ export class AppComponent implements OnInit{
   title = 'ams-ui';
   opened = true;
   navbarOpen = false;
-  expenseMenu:  Array<any> = [
+  accountsMenu:  Array<any> = [
     {
       name: 'Daily Expense',
       url: '/daily-expense/-1',

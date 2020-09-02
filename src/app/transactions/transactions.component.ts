@@ -19,6 +19,7 @@ export class TransactionsComponent implements OnInit {
   accounts          : Account[];
   minDate: Date;
   maxDate: Date;
+  successMsg = '';
 
   constructor(private transCategoryDataService: TransCategoryDataService,
               private accountDataService: AccountDataService,
@@ -35,8 +36,9 @@ export class TransactionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.successMsg = '';
     this.transaction = new Transaction(this.route.snapshot.params.expenseid,'','','CDT','','','',0,new Date(),null,null,
-                                      this.authenticationService.getAuthenticatedUser());
+                                      this.authenticationService.getAuthenticatedUser(),'0');
             // console.log('Curr year'+this.globalVariablesService.currentYear.currentYear)
     if(this.globalVariablesService.currentYear != null){                                 
       this.minDate = this.globalVariablesService.currentYear.startDate;
@@ -77,14 +79,16 @@ export class TransactionsComponent implements OnInit {
       this.transactionDataService.createTransaction(this.transaction)
       .subscribe(
         data => {
-          this.returnNavigate()          
+          // this.returnNavigate()         
+          this.successMsg = 'Saved Successfully';
         }
       )
     }else{
       this.transactionDataService.updateTransaction(this.transaction)
       .subscribe(
         data => {
-          this.returnNavigate()
+          // this.returnNavigate()
+          this.successMsg = 'Updated Successfully';
         }
       )
     }
@@ -92,6 +96,12 @@ export class TransactionsComponent implements OnInit {
 
   cancelTransaction(){
     this.returnNavigate();
+  }
+
+  newTransaction(){  
+    this.successMsg = '';
+    this.transaction = new Transaction(-1,'','','CDT','','','',0,new Date(),null,null,
+                                      this.authenticationService.getAuthenticatedUser(),'0');
   }
 
   onCategoryChange(){   

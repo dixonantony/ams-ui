@@ -53,8 +53,15 @@
                     </span> 
                 </mat-form-field>   
             </div>  
-            <div class="col-sm-8" ></div> 
-            
+            <div class="col-sm-4" >
+                <mat-form-field class="form-field" >
+                    <input matInput placeholder="Voucher Number" 
+                           [(ngModel)]="transaction.voucherNo"
+                           minlength="1"  maxlength="12"
+                           #voucherNo="ngModel" name="voucherNo">
+                </mat-form-field>  
+            </div> 
+            <div class="col-sm-4" ></div>
             <div class="col-sm-4" >
                 <mat-form-field class="form-field" appearance="fill">
                     <mat-label>Transaction Date</mat-label>
@@ -120,10 +127,14 @@
             </div>
         </div>
         <mat-divider></mat-divider>
+        <button class="btn btn-primary" 
+                style="width: 80px;"
+                (click)=newTransaction()>New  </button>
         <button class="btn btn-success" 
                 style="width: 80px;">Save  </button>
         <button class="btn btn-danger" 
                 style="width: 80px;" 
                 (click)=cancelTransaction() >Cancel</button>
+        <span class="successMsg">{{successMsg}}</span>        
     </form>
 </div>

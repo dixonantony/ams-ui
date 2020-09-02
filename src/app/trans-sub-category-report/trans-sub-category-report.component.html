@@ -24,6 +24,7 @@
                     <input matInput [min]="minDate" [max]="maxDate" 
                         [(ngModel)]="startDate" 
                         [matDatepicker]="startPicker" name="fromDate"
+                        (dateChange)="onDateChange()"
                         #fromDate="ngModel" required="required">
                     <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
                     <mat-datepicker #startPicker></mat-datepicker>
@@ -76,6 +77,7 @@
                           matTooltip="double click to get detail report"
                           (dblclick)="rowDoubleClick(row)"></mat-row>
             </mat-table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
         </div>
     </form>
     

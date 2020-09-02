@@ -1,0 +1,38 @@
+.form {
+    /* min-width: 150px;
+    max-width: 500px; */
+    width: 100%; 
+    /* text-align: center; */
+    /* padding: 10px; */
+  }
+  
+  .form-field {
+    width: 100%;
+  }
+
+.mat-column-action {
+    flex: 0 0 7%;
+}
+.mat-column-accountCd {
+    flex: 0 0 6%;
+}
+
+.mat-column-accountNo {
+    flex: 0 0 12%;
+}
+
+.mat-column-accountName {
+    flex: 0 0 12%;
+}
+
+.mat-column-account_bank {
+    flex: 0 0 12%;
+}
+
+.mat-column-desc_txt {
+    flex: 0 0 12%;
+}
+
+.mat-column-active {
+    flex: 0 0 3%;
+}

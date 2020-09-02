@@ -15,7 +15,8 @@ export class Transaction {
               public transactionDate: Date, 
               public created: Date,
               public lastUpdated: Date,
-              public username: string){
+              public username: string,
+              public voucherNo: string){
 
   }
 }
@@ -33,7 +34,7 @@ export class TransactionDataService {
   }
 
   deleteTransactionById(transactionId: number){
-    return this.http.delete(`${API_URL}/transactions/${transactionId}`);
+    return this.http.delete(`${API_URL}/transactions/id/${transactionId}`);
   }
 
   retriveTransactionById(transactionId: number){

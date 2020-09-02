@@ -23,3 +23,11 @@
     color: white;
     align-self: baseline;
   }
+
+  .mat-column-action {
+    flex: 0 0 7%;
+ }
+
+ .mat-column-voucherNo {
+  flex: 0 0 7%;
+}

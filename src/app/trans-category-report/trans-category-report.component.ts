@@ -102,4 +102,8 @@ export class TransCategoryReportComponent implements OnInit {
     this.transactionReportDataService.endDate = null;
     this.router.navigateByUrl('/trans-detail-report')
   }
+
+  getTotalAmount() {
+    return this.transactionCategoryReport.map(t => t.total).reduce((total, value) => total + value, 0);
+  }
 }

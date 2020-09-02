@@ -6,6 +6,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { TransactionReportDataService, TransactionReport } from '../service/data/transaction-report-data.service';
 import { ExcelService } from '../service/common/excel.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
+import { TransactionDataService } from '../service/data/transaction-data.service';
 
 @Component({
   selector: 'app-list-transactions',
@@ -19,8 +22,9 @@ export class ListTransactionsComponent implements OnInit {
   endDate     : Date;
   currentDate : Date;
   transactionReport : TransactionReport[];
+  isSummaryRequired = false;
 
-  displayedColumns: string[] = ['transSubCategoryName','transactionDate','transactionDesc','amount','paymentType', 'accountName', 'transactionRefNo'];
+  displayedColumns: string[] = ['action','voucherNo','transSubCategoryName','transactionDate','transactionDesc','amount','paymentType', 'accountName', 'transactionRefNo'];
   dataSource: MatTableDataSource<TransactionReport>;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -28,8 +32,10 @@ export class ListTransactionsComponent implements OnInit {
 
   constructor(private globalVariablesService: GlobalVariablesService,
               private transactionReportDataService: TransactionReportDataService,
+              private transactionDataService: TransactionDataService,
               private excelService:ExcelService,
-              private router : Router) {
+              private router : Router,
+              private dialog: MatDialog) {
     this.currentDate  = new Date();
     this.startDate    = this.currentDate;
     this.endDate      = this.currentDate;
@@ -41,10 +47,10 @@ export class ListTransactionsComponent implements OnInit {
     )
    }
 
-  ngOnInit(): void {    
-    console.log('ngOnInit')
+  ngOnInit(): void { 
+    this.isSummaryRequired = this.transactionReportDataService.isSummaryRequired
     this.onYearChange();
-    this.loadTransactionData();  
+    this.loadTransactionData();
   }
 
   onYearChange(){   
@@ -59,9 +65,13 @@ export class ListTransactionsComponent implements OnInit {
       this.startDate = this.minDate;
       this.endDate   = this.maxDate;
     } 
-
-    
+    this.loadTransactionData();    
   }
+
+  onDateChange(){
+    this.loadTransactionData();
+  }
+
   loadTransactionData(){
     if( this.transactionReportDataService == null ||       
       typeof this.transactionReportDataService.subCategoryCode === 'undefined' ||
@@ -84,8 +94,7 @@ export class ListTransactionsComponent implements OnInit {
     this.transactionReportDataService.retrieveTransactionReportForASubCategory(
               this.transactionReportDataService.subCategoryCode,this.startDate,this.endDate)
       .subscribe(
-        data => {
-        this.transactionReportDataService.subCategoryCode  = ''
+        data => {        
         this.transactionReportDataService.startDate = this.globalVariablesService.currentYear.startDate;
         this.transactionReportDataService.endDate = this.globalVariablesService.currentYear.endDate;
         this.transactionReport = data
@@ -114,5 +123,35 @@ export class ListTransactionsComponent implements OnInit {
 
   returnBack(){
     this.router.navigateByUrl('/trans-detail-report')
+  }
+  ngOnDestroy() {
+    this.transactionReportDataService.subCategoryCode  = ''
+    this.transactionReportDataService.isSummaryRequired = false;
+    // this.globalVariablesService..yearChangeEvent.unsubscribe();
+  }
+
+  editRow(transactionReport : TransactionReport){
+    this.router.navigateByUrl('/daily-expense/'+transactionReport.transactionId)
+  }
+
+  AddRow(){
+    this.router.navigateByUrl('/account/na')
+  }
+
+  deleteRow(transactionReport : TransactionReport){    
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console
+      if(result){
+        this.transactionDataService.deleteTransactionById(transactionReport.transactionId).subscribe(
+          data =>{
+            this.transactionReport.splice(this.transactionReport.indexOf(transactionReport),1)
+            this.dataSource = new MatTableDataSource<TransactionReport>(this.transactionReport);
+          }
+        )
+      }      
+    });
+    
   }
 }

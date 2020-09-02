@@ -55,24 +55,30 @@
               <mat-header-cell *matHeaderCellDef> Category Name </mat-header-cell>
               <mat-cell *matCellDef="let element; let idx = index;">
                     {{element.categoryName}} 
-              </mat-cell>                       
+              </mat-cell>   
+              <mat-footer-cell *matFooterCellDef style="font-weight: bold;"> Total </mat-footer-cell>
             </ng-container>
             <ng-container matColumnDef="categoryDescription" style="width: 10px;">
                 <mat-header-cell *matHeaderCellDef> Category Description </mat-header-cell>
                 <mat-cell *matCellDef="let element; let idx = index;">
                       {{element.categoryDescription}} 
-                </mat-cell>                       
+                </mat-cell>    
+                <mat-footer-cell *matFooterCellDef>  </mat-footer-cell>                   
             </ng-container>           
             <ng-container matColumnDef="total">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Total </mat-header-cell>
               <mat-cell *matCellDef="let element" >{{element.total | number : '.2-2'}}</mat-cell>
+              <mat-footer-cell *matFooterCellDef style="font-weight: bold;"> 
+                  {{getTotalAmount() | number : '.2-2'}} </mat-footer-cell>
             </ng-container>
                         
             <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns; let idx = index;" 
                       matTooltip="double click to get detail report"
                       (dblclick)="rowDoubleClick(row)"></mat-row>
+            <mat-footer-row *matFooterRowDef="displayedColumns;sticky: true"></mat-footer-row>          
         </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>   
     </form>   
 </div>

@@ -97,7 +97,12 @@ export class TransSubCategoryReportComponent implements OnInit {
       }
       this.startDate = this.minDate;
       this.endDate   = this.maxDate;
-    }     
+    }   
+    this.loadTransactionSubCategoryReportData();  
+  }
+
+  onDateChange(){
+    this.loadTransactionSubCategoryReportData();
   }
 
   exportAsXLSX() {
@@ -124,8 +129,9 @@ export class TransSubCategoryReportComponent implements OnInit {
   }
   goToDetails(){
     this.transactionReportDataService.subCategoryCode = '';
+    this.transactionReportDataService.isSummaryRequired = true;
     this.transactionReportDataService.startDate = null;
     this.transactionReportDataService.endDate = null;
-    this.router.navigateByUrl('/transactions-report')
+    this.router.navigateByUrl('/transactions-report')    
   }  
 }

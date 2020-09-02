@@ -50,12 +50,11 @@
                 <a routerLink="/welcome/{{username}}" style="vertical-align:top;">Dashboard</a></li>
               <li style="text-align: left;">
                 <div>
-                  <mat-icon>add_shopping_cart</mat-icon>
-                  <a (click)="toggleNavbar()"  class="menubutton">
-                    Expenses </a>
+                  <mat-icon>account_balance</mat-icon>
+                  <a (click)="toggleNavbar()"  class="menubutton">Accounting</a>
                 </div> 
                 <div class="collapse navbar-collapse" [ngClass]="{'show': navbarOpen}">        
-                  <ng-container *ngFor="let menu of expenseMenu">
+                  <ng-container *ngFor="let menu of accountsMenu">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" [routerLink]="[menu.url]" 
@@ -65,12 +64,12 @@
                   </ng-container>
                 </div>
               </li>
-              <li>
+              <!-- <li>
                 <div>
-                  <mat-icon>account_balance</mat-icon>
+                  <mat-icon>add_shopping_cart</mat-icon>
                   <a   class="menubutton">Accounting</a>
                 </div> 
-              </li>
+              </li> -->
               <li>
                 <div>
                   <mat-icon>location_city</mat-icon>
