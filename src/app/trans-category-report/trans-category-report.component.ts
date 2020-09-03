@@ -104,6 +104,10 @@ export class TransCategoryReportComponent implements OnInit {
   }
 
   getTotalAmount() {
-    return this.transactionCategoryReport.map(t => t.total).reduce((total, value) => total + value, 0);
+    if (typeof this.transactionCategoryReport !== 'undefined' && this.transactionCategoryReport.length > 0) {
+      return this.transactionCategoryReport.map(t => t.total).reduce((total, value) => total + value, 0);
+    }else{
+      return 0;
+    }    
   }
 }

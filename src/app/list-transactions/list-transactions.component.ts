@@ -81,7 +81,6 @@ export class ListTransactionsComponent implements OnInit {
       .subscribe(
         data => {
         this.transactionReport = data
-        console.log(this.transactionReport)
         this.dataSource = new MatTableDataSource<TransactionReport>(this.transactionReport);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;          
@@ -118,7 +117,7 @@ export class ListTransactionsComponent implements OnInit {
   }
 
   rowDoubleClick(transactionReport : TransactionReport){
-    this.router.navigateByUrl('/daily-expense/'+transactionReport.transactionId)
+    this.editRow(transactionReport);
   } 
 
   returnBack(){
@@ -127,10 +126,10 @@ export class ListTransactionsComponent implements OnInit {
   ngOnDestroy() {
     this.transactionReportDataService.subCategoryCode  = ''
     this.transactionReportDataService.isSummaryRequired = false;
-    // this.globalVariablesService..yearChangeEvent.unsubscribe();
   }
 
   editRow(transactionReport : TransactionReport){
+    this.transactionReportDataService.fromListTransReport = true;
     this.router.navigateByUrl('/daily-expense/'+transactionReport.transactionId)
   }
 

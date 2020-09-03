@@ -45,7 +45,8 @@ export class TransactionReportDataService {
   categoryCode      : string;
   subCategoryCode   : string;
   startDate;endDate : Date;
-  isSummaryRequired = false;
+  isSummaryRequired   = false;
+  fromListTransReport = false;
   
   constructor(private http: HttpClient,
               private datepipe: DatePipe) { }

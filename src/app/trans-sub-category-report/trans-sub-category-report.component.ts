@@ -121,6 +121,7 @@ export class TransSubCategoryReportComponent implements OnInit {
     this.transactionReportDataService.subCategoryCode = transactionSubCategoryReport.transactionSubCategoryCode;
     this.transactionReportDataService.startDate = this.startDate;
     this.transactionReportDataService.endDate = this.endDate;
+    this.transactionReportDataService.isSummaryRequired = true;
     this.router.navigateByUrl('/transactions-report')
   } 
 
@@ -134,4 +135,8 @@ export class TransSubCategoryReportComponent implements OnInit {
     this.transactionReportDataService.endDate = null;
     this.router.navigateByUrl('/transactions-report')    
   }  
+
+  ngOnDestroy(){
+    // this.transactionReportDataService.isSummaryRequired = false;
+  }
 }

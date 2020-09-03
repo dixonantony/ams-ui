@@ -37,7 +37,6 @@ export class ListTransCategoryComponent implements OnInit {
   }
 
   editRow(transCategory: TransCategory){
-    console.log(transCategory)
     this.router.navigateByUrl('/trans-category/'+ transCategory.category_cd)
   }
 

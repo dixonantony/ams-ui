@@ -5,6 +5,7 @@ import { Account,AccountDataService } from '../service/data/account-data.service
 import { GlobalVariablesService } from '../global-variables.service';
 import { AuthenticationService } from '../service/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TransactionReportDataService } from '../service/data/transaction-report-data.service';
 
 @Component({
   selector: 'app-transactions',
@@ -27,7 +28,8 @@ export class TransactionsComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private router: Router,
               private route: ActivatedRoute,
-              private transactionDataService: TransactionDataService) { 
+              private transactionDataService: TransactionDataService,
+              private transactionReportDataService: TransactionReportDataService) { 
     this.globalVariablesService.yearChangeEvent.subscribe(
       (data)=>{
         this.onYearChange()
@@ -37,9 +39,10 @@ export class TransactionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.successMsg = '';
+    console.log('Curr year'+this.transactionReportDataService.fromListTransReport)
     this.transaction = new Transaction(this.route.snapshot.params.expenseid,'','','CDT','','','',0,new Date(),null,null,
                                       this.authenticationService.getAuthenticatedUser(),'0');
-            // console.log('Curr year'+this.globalVariablesService.currentYear.currentYear)
+            
     if(this.globalVariablesService.currentYear != null){                                 
       this.minDate = this.globalVariablesService.currentYear.startDate;
       this.maxDate = this.globalVariablesService.currentYear.endDate;
@@ -74,7 +77,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   saveTransaction(){
-    if (this.transaction.transactionId === -1){
+    if (this.transaction.transactionId == -1){
       this.transaction.transactionId = null
       this.transactionDataService.createTransaction(this.transaction)
       .subscribe(
@@ -87,8 +90,11 @@ export class TransactionsComponent implements OnInit {
       this.transactionDataService.updateTransaction(this.transaction)
       .subscribe(
         data => {
-          // this.returnNavigate()
-          this.successMsg = 'Updated Successfully';
+          if(this.transactionReportDataService.fromListTransReport == true){
+            this.returnNavigate()
+          }else{
+            this.successMsg = 'Updated Successfully';
+          }          
         }
       )
     }
@@ -119,14 +125,20 @@ export class TransactionsComponent implements OnInit {
   }
 
   returnNavigate(){
-    console.log('transactionId'+this.transaction.transactionId)
     if (this.transaction.transactionId == -1){
       this.router.navigate(['/welcome/this.authenticationService.getAuthenticatedUser()'])
     }
     else{
-      this.router.navigateByUrl('/transactions-report')
-    }
-    
+      if(this.transactionReportDataService.fromListTransReport == true){
+        this.router.navigateByUrl('/transactions-report')
+      }else{
+        this.router.navigate(['/welcome/this.authenticationService.getAuthenticatedUser()'])
+      }        
+    }    
+  }
+
+  ngOnDestroy() {
+    this.transactionReportDataService.fromListTransReport = false;
   }
 
 }
