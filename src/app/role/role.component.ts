@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { SubMenus, SubMenu, SubmenuDataService } from '../service/data/submenu-data.service';
+import { GlobalVariablesService } from '../global-variables.service';
 
 @Component({
   selector: 'app-role',
@@ -26,7 +27,8 @@ export class RoleComponent implements OnInit {
   constructor(private roleDataService: RoleDataService,
               private router: Router,
               private route: ActivatedRoute,
-              private submenuDataService: SubmenuDataService) { }
+              private submenuDataService: SubmenuDataService,
+              private globalVariables: GlobalVariablesService) { }
 
   ngOnInit(): void {
     this.successMsg = '';    

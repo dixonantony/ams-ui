@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { User, UserDataService } from '../service/data/user-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
+import { GlobalVariablesService } from '../global-variables.service';
 
 @Component({
   selector: 'app-list-users',
@@ -24,7 +25,8 @@ export class ListUsersComponent implements OnInit {
 
   constructor(private userDataService: UserDataService,
               private router : Router,
-              private dialog: MatDialog) { 
+              private dialog: MatDialog,
+              private globalVariables: GlobalVariablesService) { 
     
   }
 
