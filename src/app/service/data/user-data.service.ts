@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_URL } from 'src/app/app.constants';
+import { Occupant } from './occupant-data.service';
+import { Role } from './role-data.service';
 
 export class User {
   constructor(public user_id: number,
@@ -11,7 +13,9 @@ export class User {
               public email: string, 
               public mobNo: string,               
               public created: Date,
-              public lastUpdated: Date){
+              public lastUpdated: Date,
+              public occupant: Occupant,
+              public role: Role){
 
   }
 }

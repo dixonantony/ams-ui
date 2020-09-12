@@ -31,3 +31,9 @@
  .mat-column-voucherNo {
   flex: 0 0 7%;
 }
+
+mat-header-cell, mat-cell {
+  text-align: center;
+  border: 1px solid #CCC;
+  padding: 0 !important;
+}

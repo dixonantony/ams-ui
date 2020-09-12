@@ -1,0 +1,36 @@
+<div class="mat-elevation-z8">
+    <div >
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+      </mat-form-field> 
+      <button mat-raised-button color="primary" style="float: right;vertical-align: bottom;" (click)="AddRow()">
+        Add Role
+      </button>
+    </div>
+      <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
+          <ng-container matColumnDef="action" >
+            <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+              <mat-icon matTooltip="edit"   (click)="editRow(element)">edit</mat-icon>
+              <mat-icon matTooltip="delete" (click)="deleteRow(element)">delete</mat-icon>
+            </mat-cell>      
+          </ng-container> 
+          <ng-container matColumnDef="roleName" sticky>
+            <mat-header-cell *matHeaderCellDef> Role Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.roleName}} </mat-cell>      
+          </ng-container>  
+          
+          <ng-container matColumnDef="roleDescription">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Role Description </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.roleDescription}} </mat-cell>
+          </ng-container> 
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;" 
+                    (dblclick)="editRow(row)"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[10, 20, 30, 100]" showFirstLastButtons></mat-paginator>
+        
+  </div>
+  

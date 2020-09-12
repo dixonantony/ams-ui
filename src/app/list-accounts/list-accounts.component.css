@@ -36,3 +36,10 @@
 .mat-column-active {
     flex: 0 0 3%;
 }
+
+mat-header-cell, mat-cell {
+    display:flex;
+    justify-content:center;
+    border: 1px solid #CCC;
+    padding: 0 !important;
+  }

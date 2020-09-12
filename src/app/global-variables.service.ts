@@ -17,10 +17,13 @@ interface paymentType {
   providedIn: 'root'
 })
 export class GlobalVariablesService {
-  currentYear: FinancialYear
+  currentYear   : FinancialYear
   financialYears: FinancialYear[]
-  loggedInUser: User
-  
+  loggedInUser  : User
+  enableView        : boolean = false
+  enableSave        : boolean = false
+  enableDelete      : boolean = false
+
   Active: yesno[] = [
     {value: 'Y', viewValue: 'Yes'},
     {value: 'N', viewValue: 'No'}

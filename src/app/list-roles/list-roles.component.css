@@ -1,0 +1,22 @@
+.mat-column-action {
+    flex: 0 0 7%;
+  }
+.mat-table {
+    overflow-x: scroll;
+    display: block !important;
+  }
+
+  .mat-header-cell {
+    border: 1px solid #CCC;
+    padding: 0 !important;
+    display:flex;
+  justify-content:center;
+
+}
+
+.mat-cell {
+  display:flex;
+  justify-content:center;
+  border: 1px solid #CCC;
+  padding: 0 !important;
+}

@@ -129,12 +129,14 @@
         <mat-divider></mat-divider>
         <button class="btn btn-primary" 
                 style="width: 80px;"
-                (click)=newTransaction()>New  </button>
+                (click)=newTransaction()
+                [disabled]= !globalVariablesService.enableSave>New  </button>
         <button class="btn btn-success" 
-                style="width: 80px;">Save  </button>
+                style="width: 80px;"
+                [disabled]= !globalVariablesService.enableSave >Save  </button>
         <button class="btn btn-danger" 
                 style="width: 80px;" 
-                (click)=cancelTransaction() >Cancel</button>
+                (click)=cancelTransaction()>Cancel</button>
         <span class="successMsg">{{successMsg}}</span>        
     </form>
 </div>

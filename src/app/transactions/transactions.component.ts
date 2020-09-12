@@ -39,7 +39,6 @@ export class TransactionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.successMsg = '';
-    console.log('Curr year'+this.transactionReportDataService.fromListTransReport)
     this.transaction = new Transaction(this.route.snapshot.params.expenseid,'','','CDT','','','',0,new Date(),null,null,
                                       this.authenticationService.getAuthenticatedUser(),'0');
             
@@ -126,13 +125,13 @@ export class TransactionsComponent implements OnInit {
 
   returnNavigate(){
     if (this.transaction.transactionId == -1){
-      this.router.navigate(['/welcome/this.authenticationService.getAuthenticatedUser()'])
+      this.router.navigate(['/welcome/'+ this.globalVariablesService.loggedInUser.username])
     }
     else{
       if(this.transactionReportDataService.fromListTransReport == true){
         this.router.navigateByUrl('/transactions-report')
       }else{
-        this.router.navigate(['/welcome/this.authenticationService.getAuthenticatedUser()'])
+        this.router.navigate(['/welcome/'+ this.globalVariablesService.loggedInUser.username])
       }        
     }    
   }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FinancialYearService, FinancialYear } from '../service/data/financial-year.service';
 import { GlobalVariablesService } from '../global-variables.service';
+import { UserDataService, User } from '../service/data/user-data.service';
 
 @Component({
   selector: 'app-welcome',

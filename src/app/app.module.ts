@@ -42,6 +42,8 @@ import { TransCategoryReportComponent } from './trans-category-report/trans-cate
 import { TransSubCategoryReportComponent } from './trans-sub-category-report/trans-sub-category-report.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ExcelService } from './service/common/excel.service';
+import { RoleComponent } from './role/role.component';
+import { ListRolesComponent } from './list-roles/list-roles.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { ExcelService } from './service/common/excel.service';
     TransactionsComponent,
     ListTransactionsComponent,
     TransCategoryReportComponent,
-    TransSubCategoryReportComponent
+    TransSubCategoryReportComponent,
+    RoleComponent,
+    ListRolesComponent
   ],
   imports: [
     BrowserModule,

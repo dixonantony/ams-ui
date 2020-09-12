@@ -4,41 +4,44 @@
       <mat-label>Filter</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
     </mat-form-field> 
-    <button mat-mini-fab color="primary" style="float: right;vertical-align: bottom;" (click)="AddRow()">
+    <button mat-mini-fab color="primary" 
+            style="float: right;vertical-align: bottom;" 
+            (click)="AddRow()"
+            [disabled]= !globalVariablesService.enableSave>
       <mat-icon>person_add</mat-icon>
     </button>
   </div>
     <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
-        <ng-container matColumnDef="action" [sticky]="true">
+        <ng-container matColumnDef="action" >
           <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
             <mat-icon matTooltip="edit"   (click)="editRow(element)">edit</mat-icon>
             <mat-icon matTooltip="delete" (click)="deleteRow(element)">delete</mat-icon>
           </mat-cell>      
         </ng-container> 
-        <ng-container matColumnDef="username">
+        <ng-container matColumnDef="username" sticky>
           <mat-header-cell *matHeaderCellDef> User Name </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>      
         </ng-container>  
         
-        <ng-container matColumnDef="firstName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.firstName}} </mat-cell>
-        </ng-container>      
-        
-        <ng-container matColumnDef="lastName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </mat-header-cell>
-          <mat-cell *matCellDef="let element">{{element.lastName}}</mat-cell>
-        </ng-container>
+        <ng-container matColumnDef="fullName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Full Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.occupant.fullName}} </mat-cell>
+        </ng-container> 
 
+        <ng-container matColumnDef="role">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.role.roleName}} </mat-cell>
+        </ng-container> 
+      
         <ng-container matColumnDef="email">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-            <mat-cell *matCellDef="let element">{{element.email}}</mat-cell>
+            <mat-cell *matCellDef="let element">{{element.occupant.email}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="mobNo">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Mobile No. </mat-header-cell>
-            <mat-cell *matCellDef="let element">{{element.mobNo}}</mat-cell>
+            <mat-cell *matCellDef="let element">{{element.occupant.mobileNo}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="created">
@@ -46,14 +49,58 @@
             <mat-cell *matCellDef="let element">{{element.created | date: 'dd-MMM-yyyy HH:mm:ss'}}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="lastUpdated">
+        <ng-container matColumnDef="lastUpdated" stickyEnd>
             <mat-header-cell *matHeaderCellDef mat-sort-header> Last Updated </mat-header-cell>
             <mat-cell *matCellDef="let element">{{element.lastUpdated | date: 'dd-MMM-yyyy HH:mm:ss'}}</mat-cell>
-        </ng-container>
+        </ng-container> 
                     
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;" 
                   (dblclick)="editRow(row)"></mat-row>
       </mat-table>
       <mat-paginator [pageSizeOptions]="[10, 20, 30, 100]" showFirstLastButtons></mat-paginator>
+      
 </div>
+<!-- <div style="width: 100%;">
+<table mat-table [dataSource]="dataSource" matSort  style="width: 100%;">
+  <ng-container matColumnDef="action" >
+    <th mat-header-cell *matHeaderCellDef> Edit </th>
+    <td mat-cell *matCellDef="let element"> 
+      <mat-icon matTooltip="edit"   (click)="editRow(element)">edit</mat-icon>
+      <mat-icon matTooltip="delete" (click)="deleteRow(element)">delete</mat-icon>
+    </td>
+  </ng-container> 
+  <ng-container matColumnDef="username">
+    <th mat-header-cell *matHeaderCellDef> User Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+  </ng-container> 
+  <ng-container matColumnDef="fullName">
+    <th mat-header-cell *matHeaderCellDef> User Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.occupant.fullName}} </td>
+  </ng-container> 
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef> Email </th>
+    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+  </ng-container> 
+
+  <ng-container matColumnDef="mobNo">
+    <th mat-header-cell *matHeaderCellDef> Mobile No. </th>
+    <td mat-cell *matCellDef="let element"> {{element.occupant.mobileNo}} </td>
+  </ng-container> 
+
+  <ng-container matColumnDef="created">
+    <th mat-header-cell *matHeaderCellDef> Created On </th>
+    <td mat-cell *matCellDef="let element"> {{element.created | date: 'dd-MMM-yyyy HH:mm:ss'}} </td>
+  </ng-container> 
+
+  <ng-container matColumnDef="lastUpdated">
+    <th mat-header-cell *matHeaderCellDef> Last Updated </th>
+    <td mat-cell *matCellDef="let element"> {{element.lastUpdated | date: 'dd-MMM-yyyy HH:mm:ss'}} </td>
+  </ng-container> 
+  
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+      (dblclick)="editRow(row)">
+  </tr>
+</table>
+</div> -->

@@ -14,7 +14,7 @@ import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-d
 })
 
 export class ListUsersComponent implements OnInit {
-  displayedColumns: string[] = ['action','username', 'firstName', 'lastName', 'email','mobNo','created','lastUpdated'];
+  displayedColumns: string[] = ['action','username', 'fullName','role', 'email','mobNo','created','lastUpdated'];
   users: User[];
   dataSource: MatTableDataSource<User>;
 
@@ -28,7 +28,8 @@ export class ListUsersComponent implements OnInit {
     
   }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {  
+    // this.users[0].occupant.fullName 
     this.userDataService.retrieveAllUsers().subscribe(
       data => {
         this.users      = data

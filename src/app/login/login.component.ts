@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../service/authentication.service';
+import { GlobalVariablesService } from '../global-variables.service';
+import { UserDataService } from '../service/data/user-data.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,9 @@ export class LoginComponent implements OnInit {
   @Output() IsLoggedIn = new EventEmitter<String>();
 
   constructor(private router: Router,
-              private authenticationService: AuthenticationService) { }
+              private authenticationService: AuthenticationService,
+              private globalVariables: GlobalVariablesService,
+              private userDataService: UserDataService) { }
 
   ngOnInit(): void {
     sessionStorage.clear()
@@ -65,6 +69,13 @@ export class LoginComponent implements OnInit {
         this.IsLoggedIn.emit(this.username);
         this.router.navigate(['welcome', this.username]);
         this.invalidLogin = false;
+        this.userDataService.retriveUserByUsername(this.username)
+            .subscribe(
+              data => {
+                this.globalVariables.loggedInUser = data
+                console.log('username '+ this.username)
+              }          
+          );
       },
       error =>{
         this.invalidLogin = true;

@@ -6,9 +6,7 @@ import {map} from 'rxjs/operators'
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
-
- 
+export class AuthenticationService {  
 
   constructor(private http: HttpClient) { }
 
@@ -22,7 +20,7 @@ export class AuthenticationService {
   }
 
   isUserLoggedIn(){
-    let user = sessionStorage.getItem(AUTHENTICATION_USER)
+    let user =  sessionStorage.getItem(AUTHENTICATION_USER);     
     return !(user === null)
   }
 
@@ -34,7 +32,7 @@ export class AuthenticationService {
       map(
         data =>{
           sessionStorage.setItem(AUTHENTICATION_USER, username);
-          sessionStorage.setItem(TOKEN, `Bearer ${data.token}`);
+          sessionStorage.setItem(TOKEN, `Bearer ${data.token}`);          
           return data;
         }
       )

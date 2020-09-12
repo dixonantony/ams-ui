@@ -39,27 +39,44 @@
                 </span>    
             </mat-form-field>
         </div>
-        <mat-divider></mat-divider>
+        <!-- <mat-divider></mat-divider> -->
         <div>
-            <mat-form-field class="form-field">
-                <input matInput placeholder="First Name" 
-                       [(ngModel)]="user.firstName"
-                       required="required" 
-                       #firstName="ngModel" name="firstName">
-                <span class="error" 
-                      *ngIf="firstName.invalid && firstName.dirty">
-                      First Name is required 
-                </span>
-            </mat-form-field>
+            <mat-form-field class="form-field" >
+                <mat-select panelClass="my-select-panel-class"
+                            placeholder="Occupant"
+                            [(ngModel)] = "occupantId"
+                            #occupantList="ngModel"
+                            name="occupantList" required
+                            (selectionChange)="onOccupantChange()">
+                    <mat-option *ngFor="let val of occupants" 
+                                [value]="val.occupantId">
+                        {{val.fullName}}
+                    </mat-option>
+                </mat-select>
+                <span class="error" *ngIf="occupantList.invalid">
+                    Select Occupant 
+                </span> 
+            </mat-form-field> 
         </div>
         <div>
-            <mat-form-field class="form-field">
-                <input matInput placeholder="Last Name" 
-                       [(ngModel)]="user.lastName"
-                       #lastName="ngModel" name="lastName">                
-            </mat-form-field>
+            <mat-form-field class="form-field" >
+                <mat-select panelClass="my-select-panel-class"
+                            placeholder="Role"
+                            [(ngModel)] = "roleCode"
+                            #role="ngModel"
+                            name="role" required
+                            (selectionChange)="onRoleChange()">
+                    <mat-option *ngFor="let val of roles" 
+                                [value]="val.roleCode">
+                        {{val.roleName}}
+                    </mat-option>
+                </mat-select>
+                <span class="error" *ngIf="role.invalid">
+                    Select Role 
+                </span> 
+            </mat-form-field> 
         </div>
-        <div>
+        <!-- <div>
             <mat-form-field class="form-field">
                 <input matInput placeholder="Email" 
                        [(ngModel)]="user.email"
@@ -85,7 +102,7 @@
                        Please enter a valid Mobile No.
                  </span>        
             </mat-form-field>
-        </div>
+        </div> -->
         <mat-divider></mat-divider>
         <button class="btn btn-success" 
                 style="width: 80px;">Save  </button>

@@ -1,4 +1,5 @@
-<div  *ngIf="!authenticationService.isUserLoggedIn() else loggedin">
+<div *ngIf="!authenticationService.isUserLoggedIn() else loggedin"> 
+<!-- [style.display]="!authenticationService.isUserLoggedIn() ? 'inline' : 'none'"> -->
   <app-login (IsLoggedIn)="AfterLoggedIn($event)"></app-login>
 </div>
 <ng-template #loggedin>
@@ -10,11 +11,15 @@
                 <!-- <button type="submit" class="mat-mini-fab closebtn"> -->
                   <mat-icon  class="closebtn" (click)="closeForm()">clear</mat-icon>
                 <!-- </button>         -->
-                <h1 style="color:rgb(233, 99, 50);"><img src="assets/jmc.jpg" alt="jmc" height="80" width="80"> Account</h1>
+                <h3 style="color:rgb(233, 99, 50);">
+                  <img src="assets/jmc.jpg" alt="jmc" height="80" width="80"> 
+                  J M Crescent Apartments
+                </h3>
               </div>
-              <mat-divider></mat-divider>
-          
-              <h2 style="padding-top: 5px;padding-bottom: 5px;">Role</h2>
+              <mat-divider></mat-divider>          
+              <h3 style="padding-top: 4px;padding-bottom: 2px;color: rgb(160, 160, 160);">
+                Role : {{role}}
+              </h3>
               <mat-divider></mat-divider>
              <div>
                <p style="padding-top: 10px;padding-bottom: 10px;"> 

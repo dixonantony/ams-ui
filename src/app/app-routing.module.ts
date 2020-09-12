@@ -16,6 +16,8 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { ListTransactionsComponent } from './list-transactions/list-transactions.component';
 import { TransCategoryReportComponent } from './trans-category-report/trans-category-report.component';
 import { TransSubCategoryReportComponent } from './trans-sub-category-report/trans-sub-category-report.component';
+import { ListRolesComponent } from './list-roles/list-roles.component';
+import { RoleComponent } from './role/role.component';
 
 
 const routes: Routes = [
@@ -34,6 +36,8 @@ const routes: Routes = [
   {path:'transactions-report', component: ListTransactionsComponent, canActivate:[RouteGuardService]},
   {path:'trans-summary-report', component: TransCategoryReportComponent, canActivate:[RouteGuardService]},
   {path:'trans-detail-report', component: TransSubCategoryReportComponent, canActivate:[RouteGuardService]},
+  {path:'list-roles', component: ListRolesComponent, canActivate:[RouteGuardService]},
+  {path:'role/:rolecode', component: RoleComponent, canActivate:[RouteGuardService]},
   {path:'**', component: ErrorComponent}
 ];
 

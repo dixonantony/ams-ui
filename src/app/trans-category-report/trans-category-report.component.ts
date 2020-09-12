@@ -42,11 +42,12 @@ export class TransCategoryReportComponent implements OnInit {
     )
    }
 
-  ngOnInit(): void {    
+  ngOnInit(): void { 
+    console.log(this.globalVariablesService.loggedInUser) 
     this.onYearChange();
   }
 
-  onYearChange(){   
+  onYearChange(){      
     if(this.globalVariablesService.currentYear != null){                                 
       this.minDate = this.globalVariablesService.currentYear.startDate;
       if(this.currentDate > new Date(this.globalVariablesService.currentYear.endDate)){

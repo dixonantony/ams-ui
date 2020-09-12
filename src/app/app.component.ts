@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AuthenticationService } from './service/authentication.service';
 import { AUTHENTICATION_USER } from './app.constants';
 import { FinancialYear, FinancialYearService } from './service/data/financial-year.service';
 import { GlobalVariablesService } from './global-variables.service';
+import { UserDataService } from './service/data/user-data.service';
 
 interface Year {
   value: string;
@@ -27,8 +28,15 @@ export class AppComponent implements OnInit{
     }
   ];
 
-  username = '';
+  username  = '';
+  role      = '';
   settingsMenu: Array<any> = [
+    {
+      name: 'Roles',
+      url: '/list-roles',
+      writeble: true,
+      icon: 'icon-speedometer'
+    },
     {
       name: 'Users',
       url: '/list-users',
@@ -76,15 +84,20 @@ export class AppComponent implements OnInit{
 
   constructor(public authenticationService: AuthenticationService,
               private financialYearService: FinancialYearService,
-              private globalVariables: GlobalVariablesService) {
+              private globalVariables: GlobalVariablesService,
+              private userDataService: UserDataService,
+              private cdref: ChangeDetectorRef) {          
     
-  }
-
-  ngOnInit(): void {      
+  }  
+  ngOnInit(): void { 
     let user = sessionStorage.getItem(AUTHENTICATION_USER)
     if(!(user === null)) {
-      this.AfterLoggedIn(this.authenticationService.getAuthenticatedUser)
-    }
+      this.AfterLoggedIn(user)
+    }  
+  }
+
+  ngAfterContentChecked() {
+    this.cdref.detectChanges();
   }
 
   toggleNavbar() {
@@ -102,7 +115,10 @@ export class AppComponent implements OnInit{
   }
 
   openForm() {
-    
+    if(typeof this.globalVariables.loggedInUser != 'undefined'
+          && this.globalVariables.loggedInUser != null){
+      this.role  = this.globalVariables.loggedInUser.role.roleName;
+    }
     this.username = sessionStorage.getItem(AUTHENTICATION_USER)
     document.getElementById("myForm").style.display = 'block' 
   }
@@ -137,5 +153,14 @@ export class AppComponent implements OnInit{
           }
         }
       ) 
+      if(typeof this.globalVariables.loggedInUser == 'undefined'
+          || this.globalVariables.loggedInUser == null){  
+          this.userDataService.retriveUserByUsername(username)
+            .subscribe(
+              data => {
+                this.globalVariables.loggedInUser = data
+              }          
+          );
+      }
   }
 }

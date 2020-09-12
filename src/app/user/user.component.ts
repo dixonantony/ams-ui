@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User, UserDataService } from '../service/data/user-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ValidationService } from '../service/validation.service';
+import { Occupant, OccupantDataService } from '../service/data/occupant-data.service';
+import { RoleDataService, Role } from '../service/data/role-data.service';
 
 
 @Component({
@@ -10,17 +12,23 @@ import { ValidationService } from '../service/validation.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  user : User
+  user            : User
   confirmpassword : string;
-  cnfrmPassword = true;
-  parent : string;
-  isDisabled = true;
-  username : string;
+  cnfrmPassword   = true;
+  parent          : string;
+  isDisabled      = true;
+  username        : string;
+  occupants       : Occupant[]
+  occupantId      : number
+  roles           : Role[]
+  roleCode        : string
 
   constructor(private route: ActivatedRoute,
     private validation: ValidationService,
     private router: Router,
-    private userDataService: UserDataService
+    private userDataService: UserDataService,
+    private occupantDataService: OccupantDataService,
+    private roleDataService: RoleDataService  
     ) { }
 
   ngOnInit(): void {
@@ -28,8 +36,9 @@ export class UserComponent implements OnInit {
     if(this.username == 'nu'){
       this.username = ''
     }
-    this.user = new User(-1,this.username,
-                          '', '','','','',new Date(),new Date());
+    this.user = new User(-1,this.username,'', '','','','',new Date(),new Date(),
+                        new Occupant(-1,'',new Date(),new Date(),'', '','','','','', '','',null,null),
+                        new Role('', '','',null));
     this.parent = this.route.snapshot.params.parent  
 
     if(this.parent == 'lu'){
@@ -42,21 +51,33 @@ export class UserComponent implements OnInit {
       this.userDataService.retriveUserByUsername(this.user.username)
         .subscribe(
           data => {
-            this.user = data
-            this.confirmpassword = this.user.password
+            this.user             = data
+            this.confirmpassword  = this.user.password
+            this.occupantId       = this.user.occupant.occupantId
+            this.roleCode         = this.user.role.roleCode
           }
         )
-    }                      
+    }
+    
+    this.occupantDataService.retrieveAllOccupants().subscribe(
+      data => {
+        this.occupants = data
+      }
+    );
+
+    this.roleDataService.retrieveAllRoles().subscribe(
+      data => {
+        this.roles = data
+      }
+    );
   }
 
   cnfrmPwdFocusOut(){
-    console.log('cnfrmPwdFocusOut') 
-    console.log(this.cnfrmPassword) 
     this.cnfrmPassword = this.validation.isInputConfirmed(this.user.password,this.confirmpassword)
-    console.log(this.cnfrmPassword) 
+    
   }
   
-  saveUser(){
+  saveUser(){    
     if (this.user.user_id === -1){
       this.userDataService.createUser(this.user)
       .subscribe(
@@ -72,7 +93,6 @@ export class UserComponent implements OnInit {
           this.returnNavigate()
         }
       )
-
     }   
   }
 
@@ -86,6 +106,16 @@ export class UserComponent implements OnInit {
     }else{
       this.router.navigate(['welcome',this.user.username])
     }
+  }
+
+  onOccupantChange(){
+    var occ = this.occupants.filter(occ => occ.occupantId == this.occupantId)[0]
+    this.user.occupant = occ; 
+  }
+
+  onRoleChange(){   
+    var rol = this.roles.filter(rol => rol.roleCode == this.roleCode)[0]
+    this.user.role = rol;
   }
 
 }

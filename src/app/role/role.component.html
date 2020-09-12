@@ -1,0 +1,86 @@
+<div class="container form">
+    <h1>Role</h1>
+    <form (ngSubmit)="!roleForm.invalid && saveRole()" #roleForm="ngForm">
+        <div class="row">
+            <div class="col-sm-1">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Role Code" 
+                           [(ngModel)]="role.roleCode"
+                           required="required" minlength="4" 
+                           maxlength="4"
+                           #rolecd="ngModel" name="rolecd">
+                    <span class="error" *ngIf="rolecd.invalid">
+                        Role Code is required 
+                    </span>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Role Name" 
+                           [(ngModel)]="role.roleName"
+                           required="required" minlength="4" 
+                           maxlength="45"
+                           #roleName="ngModel" name="roleName">
+                    <span class="error" *ngIf="roleName.invalid">
+                        Role Name is required 
+                    </span>
+                </mat-form-field>
+            </div>
+                <div class="col-sm-8">
+                    <mat-form-field class="form-field">
+                        <textarea matInput placeholder="Description" 
+                               [(ngModel)]="role.roleDescription"
+                               rows="1" cols="50" maxlength="100"
+                               #roleDescription="ngModel" name="roleDescription">
+                        </textarea>       
+                    </mat-form-field>
+                </div>        
+        </div>
+        <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >            
+            <ng-container matColumnDef="menuName" sticky>
+              <mat-header-cell *matHeaderCellDef> Menu Name </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.subMenu.subMenuName}} </mat-cell>      
+            </ng-container>  
+            
+            <ng-container matColumnDef="enableView">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> View </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <mat-checkbox
+                    [checked]="element.enableView === 'Y'" 
+                    (change)="element.enableView = $event.checked ? 'Y' : 'N'">
+                </mat-checkbox>
+             </mat-cell>
+            </ng-container> 
+    
+            <ng-container matColumnDef="enableSave">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Save </mat-header-cell>
+              <mat-cell *matCellDef="let element"> 
+                <mat-checkbox
+                    [checked]="element.enableSave === 'Y'" 
+                    (change)="element.enableSave = $event.checked ? 'Y' : 'N'">
+                </mat-checkbox>
+              </mat-cell>
+            </ng-container> 
+          
+            <ng-container matColumnDef="enableDelete">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Delete </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-checkbox
+                        [checked]="element.enableDelete === 'Y'" 
+                        (change)="element.enableDelete = $event.checked ? 'Y' : 'N'">
+                    </mat-checkbox>
+                </mat-cell>
+            </ng-container>    
+                        
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" ></mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[10, 20, 30, 100]" showFirstLastButtons></mat-paginator>
+        <button class="btn btn-success" 
+                style="width: 80px;"
+                [disabled]= !globalVariablesService.enableSave>Save  </button>
+        <button class="btn btn-danger" 
+                style="width: 80px;" 
+                (click)=cancelRole() >Cancel</button>   
+    </form>
+</div>
