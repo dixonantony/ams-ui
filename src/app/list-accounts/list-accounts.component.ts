@@ -6,6 +6,7 @@ import { Account,AccountDataService } from '../service/data/account-data.service
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
+import { GlobalVariablesService } from '../global-variables.service';
 
 @Component({
   selector: 'app-list-accounts',
@@ -16,14 +17,15 @@ export class ListAccountsComponent implements OnInit {
   displayedColumns: string[] = ['action','accountCd','accountNo','accountName', 'account_bank', 'desc_txt', 'ifsc_cd','account_balance','created','active'];
   accounts: Account[];
   dataSource: MatTableDataSource<Account>;
-
+  
   // @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private accountDataService: AccountDataService,
               private router : Router,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              public globalVariablesService: GlobalVariablesService) { }
 
   ngOnInit(): void {
     this.accountDataService.retrieveAllAccounts().subscribe(

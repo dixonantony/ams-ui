@@ -74,6 +74,17 @@ export class AppComponent implements OnInit{
   ];
   reportsNavbarOpen = false;
 
+  inhouseMenu:  Array<any> = [
+    {
+      name: 'Occupants',
+      url: 'list-occupants',
+      writeble: true,
+      icon: 'icon-speedometer'
+    }
+  ];
+
+  inhouseNavbarOpen = false;
+
   years: Year[] = [
     {value: 'N', viewValue: '2019'},
     {value: 'Y', viewValue: '2020'},
@@ -92,6 +103,7 @@ export class AppComponent implements OnInit{
   ngOnInit(): void { 
     let user = sessionStorage.getItem(AUTHENTICATION_USER)
     if(!(user === null)) {
+      this.username = user
       this.AfterLoggedIn(user)
     }  
   }
@@ -104,14 +116,16 @@ export class AppComponent implements OnInit{
     this.navbarOpen = !this.navbarOpen;
   }
 
-  toggleSettingsNavbar() {
-    
+  toggleSettingsNavbar() {    
     this.settingsNavbarOpen = !this.settingsNavbarOpen;
   }
 
-  toggleReportsNavbar() {
-    
+  toggleReportsNavbar() {    
     this.reportsNavbarOpen = !this.reportsNavbarOpen;
+  }
+
+  toggleInhouseNavbar() {    
+    this.inhouseNavbarOpen = !this.inhouseNavbarOpen;
   }
 
   openForm() {

@@ -52,7 +52,7 @@
         <div class="container">
             <ul class="ul-sidebar">
               <li><mat-icon>dashboard</mat-icon>
-                <a routerLink="/welcome/{{username}}" style="vertical-align:top;">Dashboard</a></li>
+                <a routerLink="welcome/{{username}}" style="vertical-align:top;">Dashboard</a></li>
               <li style="text-align: left;">
                 <div>
                   <mat-icon>account_balance</mat-icon>
@@ -78,7 +78,17 @@
               <li>
                 <div>
                   <mat-icon>location_city</mat-icon>
-                  <a   class="menubutton">Inhouse</a>
+                  <a (click)="toggleInhouseNavbar()" class="menubutton">Inhouse</a>
+                </div> 
+                <div class="collapse navbar-collapse " [ngClass]="{'show': inhouseNavbarOpen}">        
+                  <ng-container *ngFor="let menu of inhouseMenu">
+                    <ul class="navbar-nav mr-auto subMenu">
+                        <li class="nav-item ">
+                            <a class="nav-link" [routerLink]="[menu.url]" 
+                                id="{{menu.id}}">{{menu.name}}</a>    
+                        </li>    
+                    </ul> 
+                  </ng-container>
                 </div> 
               </li>
               <li>

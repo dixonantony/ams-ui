@@ -4,7 +4,10 @@
           <mat-label>Filter</mat-label>
           <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
         </mat-form-field> 
-        <button mat-raised-button  color="primary" style="float: right;vertical-align: bottom;" (click)="AddRow()">
+        <button mat-raised-button  color="primary" 
+                style="float: right;vertical-align: bottom;" 
+                (click)="AddRow()"
+                [disabled]= !globalVariablesService.enableSave>
             Add Account
         </button>
       </div>
@@ -13,7 +16,10 @@
             <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
             <mat-cell *matCellDef="let element"> 
               <mat-icon matTooltip="edit" (click)="editRow(element)">edit</mat-icon>
-              <mat-icon matTooltip="delete" (click)="deleteRow(element)">delete</mat-icon>
+              <button mat-icon-button [disabled]=!globalVariablesService.enableDelete 
+                      (click)="deleteRow(element)">
+                <mat-icon matTooltip="delete" >delete</mat-icon>
+              </button>
             </mat-cell>      
           </ng-container> 
           <ng-container matColumnDef="accountCd">

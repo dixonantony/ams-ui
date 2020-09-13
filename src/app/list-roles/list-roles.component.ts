@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
+import { GlobalVariablesService } from '../global-variables.service';
 
 @Component({
   selector: 'app-list-roles',
@@ -22,7 +23,8 @@ export class ListRolesComponent implements OnInit {
 
   constructor(private roleDataService: RoleDataService,
               private router : Router,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              public globalVariablesService: GlobalVariablesService) { }
 
   ngOnInit(): void {
     this.roleDataService.retrieveAllRoles().subscribe(

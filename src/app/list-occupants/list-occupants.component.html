@@ -1,0 +1,70 @@
+<div class="mat-elevation-z8">
+    <div >
+        <mat-form-field>
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+        </mat-form-field> 
+        <button mat-raised-button  color="primary" 
+                style="float: right;vertical-align: bottom;" 
+                (click)="AddRow()"
+                [disabled]= !globalVariablesService.enableSave>
+          <mat-icon>person_add</mat-icon>
+        </button>
+      </div>
+      <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
+        <ng-container matColumnDef="action" >
+            <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+              <mat-icon matTooltip="edit"   (click)="editRow(element)">edit</mat-icon>
+              <button mat-icon-button [disabled]=!globalVariablesService.enableDelete 
+                                  (click)="deleteRow(element)">
+                          <mat-icon matTooltip="delete" >delete</mat-icon>
+              </button>
+            </mat-cell>      
+          </ng-container> 
+
+        <ng-container matColumnDef="occupantcyType" sticky>
+            <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.occupantcyType}} </mat-cell>      
+        </ng-container> 
+
+        <ng-container matColumnDef="appartment" sticky>
+            <mat-header-cell *matHeaderCellDef> Appartment </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.appartment[0].appartmentCode}} </mat-cell>      
+        </ng-container>
+
+        <ng-container matColumnDef="fullName" sticky>
+            <mat-header-cell *matHeaderCellDef> Full Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.fullName}} </mat-cell>      
+        </ng-container> 
+
+        <ng-container matColumnDef="email" sticky>
+            <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>      
+        </ng-container> 
+
+        <ng-container matColumnDef="mobNo" sticky>
+            <mat-header-cell *matHeaderCellDef> Mobile No. </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.mobileNo}} </mat-cell>      
+        </ng-container>
+
+        <ng-container matColumnDef="whatsappEnabled" sticky>
+            <mat-header-cell *matHeaderCellDef> whatsApp </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.whatsappEnabled}} </mat-cell>      
+        </ng-container>
+
+        <ng-container matColumnDef="fromDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> From </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.fromDate | date: 'dd-MMM-yyyy HH:mm:ss'}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="toDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> To </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.toDate | date: 'dd-MMM-yyyy HH:mm:ss'}}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" 
+                  (dblclick)="editRow(row)"></mat-row>
+      </mat-table>
+</div>

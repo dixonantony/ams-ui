@@ -24,23 +24,26 @@ export class RouteGuardService implements CanActivate{
     if (this.authenticationService.isUserLoggedIn()) {
       if(typeof this.globalVariablesService.loggedInUser != 'undefined'
           && this.globalVariablesService.loggedInUser != null){
-        let menu : SubMenus[] = this.globalVariablesService.loggedInUser
-                        .role.subMenus
-                        .filter(menu=> menu.subMenu.menuURL == url)
 
-        if(typeof menu[0] != 'undefined'
-            && menu[0] != null){
-          this.globalVariablesService.enableView    = menu[0].enableView=='Y'? true:false
-          this.globalVariablesService.enableSave    = menu[0].enableSave=='Y'? true:false
-          this.globalVariablesService.enableDelete  = menu[0].enableDelete=='Y'? true:false
+        if(this.globalVariablesService.loggedInUser.username != 'admin'){
+          let menu : SubMenus[] = this.globalVariablesService.loggedInUser
+                                      .role.subMenus
+                                      .filter(menu=> menu.subMenu.menuURL == url)
 
-          console.log(this.globalVariablesService.enableView + '-->' +menu[0].enableView)
-          console.log(this.globalVariablesService.enableSave + '-->' +menu[0].enableSave)
-          console.log(this.globalVariablesService.enableDelete + '-->' +menu[0].enableDelete)
-        }
-        
-      }
-      
+          if(typeof menu[0] != 'undefined' && menu[0] != null){
+            this.globalVariablesService.enableView    = menu[0].enableView=='Y'? true:false
+            this.globalVariablesService.enableSave    = menu[0].enableSave=='Y'? true:false
+            this.globalVariablesService.enableDelete  = menu[0].enableDelete=='Y'? true:false
+          }
+          // console.log(this.globalVariablesService.enableView + '-->' +menu[0].enableView)
+          // console.log(this.globalVariablesService.enableSave + '-->' +menu[0].enableSave)
+          // console.log(this.globalVariablesService.enableDelete + '-->' +menu[0].enableDelete) 
+        }else{
+          this.globalVariablesService.enableView    = true
+          this.globalVariablesService.enableSave    = true
+          this.globalVariablesService.enableDelete  = true
+        }            
+      }     
       return this.globalVariablesService.enableView;
     } else{
       this.router.navigate(['login']);

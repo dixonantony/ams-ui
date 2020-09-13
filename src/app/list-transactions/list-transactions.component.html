@@ -55,7 +55,11 @@
                     <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
                     <mat-cell *matCellDef="let element"> 
                       <mat-icon matTooltip="edit" (click)="editRow(element)">edit</mat-icon>
-                      <mat-icon matTooltip="delete" (click)="deleteRow(element)">delete</mat-icon>
+                      <button mat-icon-button [disabled]=!globalVariablesService.enableDelete 
+                                (click)="deleteRow(element)">
+                        <mat-icon matTooltip="delete" >delete</mat-icon>
+                      </button>
+                      <!-- <mat-icon matTooltip="delete" (click)="deleteRow(element)">delete</mat-icon> -->
                     </mat-cell>      
                 </ng-container> 
                 <ng-container matColumnDef="voucherNo" sticky>

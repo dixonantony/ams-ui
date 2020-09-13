@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
+import { GlobalVariablesService } from '../global-variables.service';
 
 @Component({
   selector: 'app-list-trans-category',
@@ -22,7 +23,8 @@ export class ListTransCategoryComponent implements OnInit {
   
   constructor(private transCategoryDataService: TransCategoryDataService,
               private router : Router,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              public globalVariablesService: GlobalVariablesService) { }
 
   ngOnInit(): void {
     this.transCategoryDataService.retrieveAllTransCategorys().subscribe(

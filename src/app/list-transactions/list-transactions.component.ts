@@ -30,7 +30,7 @@ export class ListTransactionsComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(private globalVariablesService: GlobalVariablesService,
+  constructor(public globalVariablesService: GlobalVariablesService,
               private transactionReportDataService: TransactionReportDataService,
               private transactionDataService: TransactionDataService,
               private excelService:ExcelService,

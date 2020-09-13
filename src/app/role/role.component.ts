@@ -28,7 +28,7 @@ export class RoleComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private submenuDataService: SubmenuDataService,
-              private globalVariables: GlobalVariablesService) { }
+              public globalVariablesService: GlobalVariablesService) { }
 
   ngOnInit(): void {
     this.successMsg = '';    

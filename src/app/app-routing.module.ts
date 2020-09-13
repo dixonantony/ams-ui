@@ -18,6 +18,8 @@ import { TransCategoryReportComponent } from './trans-category-report/trans-cate
 import { TransSubCategoryReportComponent } from './trans-sub-category-report/trans-sub-category-report.component';
 import { ListRolesComponent } from './list-roles/list-roles.component';
 import { RoleComponent } from './role/role.component';
+import { ListOccupantsComponent } from './list-occupants/list-occupants.component';
+import { OccupantComponent } from './occupant/occupant.component';
 
 
 const routes: Routes = [
@@ -38,6 +40,8 @@ const routes: Routes = [
   {path:'trans-detail-report', component: TransSubCategoryReportComponent, canActivate:[RouteGuardService]},
   {path:'list-roles', component: ListRolesComponent, canActivate:[RouteGuardService]},
   {path:'role/:rolecode', component: RoleComponent, canActivate:[RouteGuardService]},
+  {path:'list-occupants', component: ListOccupantsComponent, canActivate:[RouteGuardService]},
+  {path:'occupant/:occupantid', component: OccupantComponent, canActivate:[RouteGuardService]},
   {path:'**', component: ErrorComponent}
 ];
 

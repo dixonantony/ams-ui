@@ -26,7 +26,7 @@ export class ListUsersComponent implements OnInit {
   constructor(private userDataService: UserDataService,
               private router : Router,
               private dialog: MatDialog,
-              private globalVariables: GlobalVariablesService) { 
+              public globalVariablesService: GlobalVariablesService) { 
     
   }
 
