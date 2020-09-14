@@ -71,7 +71,8 @@
 
         <ng-container matColumnDef="fullName" sticky>
             <mat-header-cell *matHeaderCellDef> Full Name </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.fullName}} </mat-cell>      
+            <mat-cell *matCellDef="let element" 
+                        > {{element.fullName}} </mat-cell>      
         </ng-container> 
 
         <ng-container matColumnDef="appartment" sticky>
@@ -86,12 +87,14 @@
 
         <ng-container matColumnDef="email" sticky>
             <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>      
+            <mat-cell *matCellDef="let element"
+                       style="justify-content: left;"> {{element.email}} </mat-cell>      
         </ng-container> 
 
         <ng-container matColumnDef="mobNo" sticky>
             <mat-header-cell *matHeaderCellDef> Mobile No. </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.mobileNo}} </mat-cell>      
+            <mat-cell *matCellDef="let element"
+                       style="justify-content: left;"> {{element.mobileNo}} </mat-cell>      
         </ng-container>
 
         <ng-container matColumnDef="whatsappEnabled" sticky>
@@ -113,4 +116,5 @@
         <mat-row *matRowDef="let row; columns: displayedColumns;" 
                   (dblclick)="editRow(row)"></mat-row>
       </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>

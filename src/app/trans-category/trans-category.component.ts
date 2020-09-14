@@ -5,6 +5,7 @@ import { TransactionType, TransTypeDataService } from '../service/data/trans-typ
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { GlobalVariablesService } from '../global-variables.service';
 
 @Component({
   selector: 'app-trans-category',
@@ -34,7 +35,8 @@ export class TransCategoryComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private transCategoryDataService: TransCategoryDataService,
-              private transTypeDataService: TransTypeDataService) { }
+              private transTypeDataService: TransTypeDataService,
+              public globalVariablesService: GlobalVariablesService) { }
 
   ngOnInit(): void {
     this.transTypeDataService.retrieveAllTransactionTypes().subscribe(

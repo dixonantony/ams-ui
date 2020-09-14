@@ -30,6 +30,7 @@ export class ListRolesComponent implements OnInit {
     this.roleDataService.retrieveAllRoles().subscribe(
       data => {
         this.roles      = data
+        this.roles = this.roles.filter(obj => obj.roleCode !== 'ADMN');
         this.dataSource = new MatTableDataSource<Role>(this.roles);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;

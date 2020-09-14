@@ -15,7 +15,12 @@
         <ng-container matColumnDef="action" >
           <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <mat-icon matTooltip="edit"   (click)="editRow(element)">edit</mat-icon>
+            <button mat-icon-button 
+                    [disabled]=!globalVariablesService.enableSave 
+                    (click)="editRow(element)">
+                <mat-icon matTooltip="edit">edit</mat-icon>
+            </button>
+            <!-- <mat-icon matTooltip="edit"   (click)="editRow(element)">edit</mat-icon> -->
             <button mat-icon-button [disabled]=!globalVariablesService.enableDelete 
                                 (click)="deleteRow(element)">
                         <mat-icon matTooltip="delete" >delete</mat-icon>

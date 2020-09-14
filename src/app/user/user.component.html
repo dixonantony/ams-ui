@@ -46,6 +46,7 @@
                             [(ngModel)] = "occupantId"
                             #occupantList="ngModel"
                             name="occupantList" required
+                            [disabled]="isDisabled"
                             (selectionChange)="onOccupantChange()">
                     <mat-option *ngFor="let val of occupants" 
                                 [value]="val.occupantId">
@@ -64,6 +65,7 @@
                             [(ngModel)] = "roleCode"
                             #role="ngModel"
                             name="role" required
+                            [disabled]="isDisabled"
                             (selectionChange)="onRoleChange()">
                     <mat-option *ngFor="let val of roles" 
                                 [value]="val.roleCode">

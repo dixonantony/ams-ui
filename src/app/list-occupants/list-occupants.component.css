@@ -13,12 +13,42 @@
     padding: 0 !important;
 }
 
-  table {
-    width: 100%;
-  }
-  
-  th.mat-header-cell, td.mat-cell {
-    text-align: center;
-    border: 1px solid #CCC;
-    padding: 0 !important;
+.mat-column-action {
+  flex: 0 0 7%;
 }
+
+.mat-column-occupantcyType {
+  flex: 0 0 6%;
+}
+
+.mat-column-fullName {
+  flex: 0 0 20%;
+  justify-content: left;
+}
+
+.mat-column-appartment {
+  flex: 0 0 7%;
+}
+
+.mat-column-email {
+  flex: 0 0 20%;
+  justify-content: left;
+}
+
+.mat-column-mobNo {
+  flex: 0 0 12%;
+  justify-content: left;
+}
+
+.mat-column-whatsappEnabled {
+  flex: 0 0 6%;
+}
+
+.mat-column-fromDate {
+  flex: 0 0 10%;
+}
+
+.mat-column-toDate {
+  flex: 0 0 10%;
+}
+

@@ -17,11 +17,11 @@ export class AccountComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private accountDataService: AccountDataService,
               private router: Router,
-              private globalVarService:GlobalVariablesService) { }
+              public globalVariablesService: GlobalVariablesService) { }
 
   ngOnInit(): void {    
     this.accountcd  = this.route.snapshot.params.accountcd
-    this.active     = this.globalVarService.Active
+    this.active     = this.globalVariablesService.Active
     if(this.accountcd == 'na'){
       this.accountcd = ''      
     }

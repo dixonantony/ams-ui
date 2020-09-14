@@ -35,6 +35,8 @@ export class ListUsersComponent implements OnInit {
     this.userDataService.retrieveAllUsers().subscribe(
       data => {
         this.users      = data
+        this.users = this.users.filter(obj => obj.username !== 'admin')
+                               .filter(obj => obj.username !== 'guest');
         this.dataSource = new MatTableDataSource<User>(this.users);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
