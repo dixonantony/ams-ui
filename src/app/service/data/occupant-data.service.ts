@@ -1,18 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_URL } from 'src/app/app.constants';
-
-export class AppartmentType {
-  constructor(public appartmentTypeCode: string,
-              public squareFeet: number,
-              public noOfBedroom: number){}
-}
-
-export class Appartment {
-  constructor(public appartmentCode: string,
-              public appartmentType: AppartmentType,
-              public floor: number){}
-}
+import { Appartment } from './appartment-data.service';
 
 export class OccupantDetails {
   constructor(public occupantDtlId: number,
@@ -21,6 +10,7 @@ export class OccupantDetails {
               public relationship: string, 
               public DOB: Date){}
 }
+
 export class Occupant {
   constructor(public occupantId: number,
               public occupantcyType: string,
@@ -34,7 +24,7 @@ export class Occupant {
               public whatsappEnabled: string,
               public identityNo: string,
               public identityType: string,
-              public appartment: Appartment[], 
+              public appartments: Appartment[], 
               public occupantDetails: OccupantDetails[]
               ){}
 }
@@ -56,6 +46,10 @@ export class OccupantDataService {
 
   retriveOccupantById(occupantId: number){
     return this.http.get<Occupant>(`${API_URL}/occupants/${occupantId}`);
+  }
+
+  retriveOccupantsByType(occupantcyType: string){
+    return this.http.get<Occupant[]>(`${API_URL}/occupants/type/${occupantcyType}`);
   }
 
   updateOccupant(occupant: Occupant){

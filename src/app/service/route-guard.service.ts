@@ -24,7 +24,6 @@ export class RouteGuardService implements CanActivate{
     if (this.authenticationService.isUserLoggedIn()) {
       if(typeof this.globalVariablesService.loggedInUser != 'undefined'
           && this.globalVariablesService.loggedInUser != null){
-
         if(this.globalVariablesService.loggedInUser.username != 'admin'){
           let menu : SubMenus[] = this.globalVariablesService.loggedInUser
                                       .role.subMenus

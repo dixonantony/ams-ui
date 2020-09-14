@@ -1,1 +1,271 @@
-<p>occupant works!</p>
+<div class="container form">
+    <h1>Occupant</h1>
+    <form (ngSubmit)="!occupantForm.invalid && saveOccupant()" 
+          #occupantForm="ngForm">
+          <div class="row">
+            <div class="col-sm-3">
+                <mat-form-field class="form-field" >
+                    <mat-select panelClass="my-select-panel-class"
+                                placeholder="Occupantcy Type"
+                                [(ngModel)] = "occupant.occupantcyType"
+                                #occupantcyType="ngModel"
+                                name="occupantcyType" required>
+                        <mat-option *ngFor="let val of globalVariablesService.occupantTypes" 
+                                    [value]="val.code">
+                            {{val.Name}}
+                        </mat-option>
+                    </mat-select>
+                    <span class="error" *ngIf="occupantcyType.invalid">
+                        Select Occupantcy Type 
+                    </span> 
+                </mat-form-field> 
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Full Name" 
+                        [(ngModel)]="occupant.fullName"
+                        required="required" minlength="4" 
+                        #fullName="ngModel" name="fullName">
+                    <span class="error" *ngIf="fullName.invalid">
+                        Full Name is required 
+                    </span>
+                </mat-form-field> 
+            </div>
+            <div class="col-sm-3" >
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>From Date</mat-label>
+                    <input matInput 
+                           [(ngModel)]="occupant.fromDate" 
+                           [matDatepicker]="picker" name="fromDate"
+                           #fromDate="ngModel" required="required">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <span class="error" *ngIf="fromDate.invalid">
+                        From Date is required 
+                    </span>
+                  </mat-form-field>
+            </div> 
+            <div class="col-sm-3" >
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>To Date</mat-label>
+                    <input matInput 
+                            [(ngModel)]="occupant.toDate" 
+                            [matDatepicker]="topicker" name="toDate"
+                            #toDate="ngModel" >
+                    <mat-datepicker-toggle matSuffix [for]="topicker"></mat-datepicker-toggle>
+                    <mat-datepicker #topicker></mat-datepicker>
+                </mat-form-field>
+            </div> 
+          </div>
+          <div class="row">
+            <div class="col-sm-2">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Landline No." 
+                        [(ngModel)]="occupant.landlineNo"
+                        minlength="4" 
+                        pattern="[\+]?\d{12,}"
+                        #landlineNo="ngModel" name="landlineNo">
+                    <span class="error" 
+                        *ngIf="landlineNo.errors &&(landlineNo.touched || landlineNo.dirty)">
+                          Please enter a valid Landline No.
+                    </span> 
+                </mat-form-field>   
+            </div>
+            <div class="col-sm-2">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Mobile No." 
+                        [(ngModel)]="occupant.mobileNo"
+                        pattern="[\+]?\d{12,}"
+                        minlength="4" #mobileNo="ngModel" name="mobileNo">
+                    <span class="error" 
+                        *ngIf="mobileNo.errors &&(mobileNo.touched || mobileNo.dirty)">
+                          Please enter a valid Mobile No.
+                    </span> 
+                </mat-form-field> 
+            </div> 
+            <div class="col-sm-2">
+                <mat-form-field class="form-field" >
+                    <mat-select panelClass="my-select-panel-class"
+                                placeholder="WhatsApp"
+                                [(ngModel)] = "occupant.whatsappEnabled"
+                                #whatsapp="ngModel"
+                                name="whatsapp" required>
+                        <mat-option *ngFor="let val of globalVariablesService.Active" 
+                                    [value]="val.value">
+                            {{val.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                    <span class="error" *ngIf="whatsapp.invalid">
+                        Is WhatsApp enabled?
+                    </span> 
+                </mat-form-field> 
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Email" 
+                        [(ngModel)]="occupant.email"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                        minlength="4" #email="ngModel" name="email">
+                    <span class="error" 
+                        *ngIf="email.errors &&(email.touched || email.dirty)">
+                        Please enter a valid email.
+                    </span> 
+                </mat-form-field> 
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Alternate Email" 
+                        [(ngModel)]="occupant.alterEmail"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                        minlength="4" #alterEmail="ngModel" name="alterEmail">
+                    <span class="error" 
+                        *ngIf="alterEmail.errors &&(alterEmail.touched || alterEmail.dirty)">
+                        Please enter a valid email.
+                    </span>
+                </mat-form-field> 
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2">
+                <mat-form-field class="form-field" >
+                    <mat-select panelClass="my-select-panel-class"
+                                placeholder="Identity Type"
+                                [(ngModel)] = "occupant.identityType"
+                                #identityType="ngModel"
+                                name="identityType">
+                        <mat-option *ngFor="let val of globalVariablesService.identityTypes" 
+                                    [value]="val.code">
+                            {{val.Name}}
+                        </mat-option>
+                    </mat-select>
+                    <!-- <span class="error" *ngIf="identityType.invalid">
+                        Is WhatsApp enabled?
+                    </span>  -->
+                </mat-form-field> 
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field class="form-field">
+                    <input matInput placeholder="Identity No." 
+                        [(ngModel)]="occupant.identityNo"
+                        minlength="4" 
+                        #identityNo="ngModel" name="identityNo">
+                    <!-- <span class="error" *ngIf="identityNo.invalid">
+                        Full Name is required 
+                    </span> -->
+                </mat-form-field> 
+            </div>
+            <div class="col-sm-2">
+                <mat-select placeholder="Appartments" 
+                            name="appartment" class="filter-select" 
+                            [compareWith]="compareAppartments"
+                            [(ngModel)]="occupant.appartments" multiple 
+                            #appartmentSelect="ngModel">
+                    <mat-option disabled="disabled" class="filter-option">
+                        <!-- <input type="checkbox"(click)="selectAll(checkAll.checked, appartmentSelect, appartments)" #checkAll> --> -->
+                        <!--<mat-option (click)="selectAll(yearSelect, years)" #checkAll> Select All-->
+                    </mat-option>
+                    <mat-option *ngFor="let appartment of appartments" [value]="appartment">
+                        {{appartment.appartmentCode}}
+                    </mat-option>
+                </mat-select>
+            </div>
+            <div class="col-sm-5"></div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="row">
+            <div class="col-sm-4">
+                <mat-form-field>
+                    <mat-label>Filter</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+                </mat-form-field> 
+            </div>
+            <div class="col-sm-4" style="vertical-align: bottom;"> 
+                <span class="error" *ngIf="rowRequired">
+                    <p [innerHTML]="rowValidationMsg"></p>
+                </span>
+            </div>
+            <div class="col-sm-4">
+                <button mat-raised-button  color="primary" style="float: right;vertical-align: bottom;" 
+                        (click)="AddRow()">
+                    Add Details
+                </button>
+            </div>
+          </div>
+          <div>
+            <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
+                <ng-container matColumnDef="action" sticky>
+                  <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                  <mat-cell *matCellDef="let element; let idx = index;"> 
+                    <ng-container *ngIf="idx !== editedRow">
+                        <mat-icon matTooltip="edit" (click)="editRow(element,idx)">edit</mat-icon>
+                        <mat-icon matTooltip="delete" (click)="deleteRow(idx)">delete</mat-icon>
+                    </ng-container>
+                    <ng-container *ngIf="idx === editedRow">
+                        <mat-icon matTooltip="save" (click)="saveRow(element)">save</mat-icon>
+                        <mat-icon matTooltip="cancel" (click)="cancelRow(idx)">cancel</mat-icon>
+                    </ng-container>
+                    
+                  </mat-cell>      
+                </ng-container> 
+                <ng-container matColumnDef="fullName" style="width: 10px;">
+                  <mat-header-cell *matHeaderCellDef> Full Name </mat-header-cell>
+                  <mat-cell *matCellDef="let element; let idx = index;">
+                    <ng-container *ngIf="idx !== editedRow">
+                        {{element.fullName}} 
+                    </ng-container>
+                    <ng-container *ngIf="idx === editedRow">
+                        <mat-form-field appearance="outline">
+                            <input matInput placeholder="Full Name" name="odFullName"
+                            required="required"
+                            [(ngModel)]="element.fullName">
+                        </mat-form-field>
+                    </ng-container>
+                  </mat-cell>                       
+                </ng-container>
+                <ng-container matColumnDef="relationship">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Relationship </mat-header-cell>
+                    <mat-cell *matCellDef="let element; let idx = index;"> 
+                        <mat-form-field appearance="outline">
+                            <mat-select panelClass="my-select-panel-class"
+                                        placeholder="Relation"
+                                        [(ngModel)] = "element.relationship"
+                                        [disabled]="idx !== editedRow"
+                                        #relationship="ngModel"
+                                        name="relationship{{idx}}" required>
+                                <mat-option *ngFor="let val of globalVariablesService.relationTypes" 
+                                            [value]="val.code">
+                                    {{val.Name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                  </mat-cell>                  
+                </ng-container> 
+                            
+                <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns; let idx = index;" 
+                          (dblclick)="editRow(row,idx)"></mat-row>
+              </mat-table>
+        </div>
+          <!-- public occupantId: number,
+              public occupantcyType: string,
+              public fromDate: Date,
+              public toDate: Date, 
+              public fullName: string, 
+              public landlineNo: string, 
+              public mobileNo: string,               
+              public email: string,
+              public alterEmail: string,
+              public whatsappEnabled: string,
+              public identityNo: string,
+              public identityType: string,
+              public appartments: Appartment[], 
+              public occupantDetails: OccupantDetails[] -->
+       
+    <mat-divider></mat-divider>
+    <button class="btn btn-success" 
+            style="width: 80px;">Save  </button>
+    <button class="btn btn-danger" 
+            style="width: 80px;" 
+            (click)=cancelOccupant() >Cancel</button>
+    </form>
+</div>

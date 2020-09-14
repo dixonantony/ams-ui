@@ -14,9 +14,10 @@ import { Occupant, OccupantDataService } from '../service/data/occupant-data.ser
   styleUrls: ['./list-occupants.component.css']
 })
 export class ListOccupantsComponent implements OnInit {
-  displayedColumns: string[] = ['action','occupantcyType','appartment', 'fullName','email','mobNo','whatsappEnabled','fromDate','toDate'];
+  displayedColumns: string[] = ['action','occupantcyType','fullName','appartment', 'email','mobNo','whatsappEnabled','fromDate','toDate'];
   occupants: Occupant[];
   dataSource: MatTableDataSource<Occupant>;
+  selectedOccupantcyType : string;
 
   // @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -30,10 +31,12 @@ export class ListOccupantsComponent implements OnInit {
   ngOnInit(): void {
     this.occupantDataService.retrieveAllOccupants().subscribe(
       data => {
-        this.occupants      = data
-        this.dataSource = new MatTableDataSource<Occupant>(this.occupants);
-        this.dataSource.sort = this.sort;
+        this.occupants            = data
+        this.occupants = this.occupants.filter(obj => obj.occupantcyType !== 'COMMON');
+        this.dataSource           = new MatTableDataSource<Occupant>(this.occupants);
+        this.dataSource.sort      = this.sort;
         this.dataSource.paginator = this.paginator;
+        
       }
     )    
   }
@@ -48,14 +51,14 @@ export class ListOccupantsComponent implements OnInit {
   }
 
   AddRow(){
-    this.router.navigateByUrl('/occupant/no')
+    this.router.navigateByUrl('/occupant/-1')
   }
 
   deleteRow(occupant: Occupant){    
     const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      
       if(result){
         this.occupantDataService.deleteOccupantById(occupant.occupantId).subscribe(
           data =>{
@@ -64,8 +67,20 @@ export class ListOccupantsComponent implements OnInit {
           }
         )
       }      
-    });
-    
+    });    
+  }
+
+  onOccupantcyTypeChange(){
+    this.occupantDataService.retriveOccupantsByType(this.selectedOccupantcyType).subscribe(
+      data => {
+        this.occupants            = data
+        this.occupants = this.occupants.filter(obj => obj.occupantcyType !== 'COMMON');
+        this.dataSource           = new MatTableDataSource<Occupant>(this.occupants);
+        this.dataSource.sort      = this.sort;
+        this.dataSource.paginator = this.paginator;
+        
+      }
+    )
   }
 
 }
